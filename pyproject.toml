@@ -3,7 +3,7 @@ name = "COVID-19 Vaccine Adverse Reactions"
 version = "1.0.0"
 description = "<UPDATE ME>"
 authors = [
-  {name = "Your Name", email = "you@example.com"},
+  {name = "S Brian Zavala", email = "stevenbrianzavala@gmail.com"},
   {name = "Your Name", email = "you@example.com"},
   {name = "Your Name", email = "you@example.com"}
 ]
@@ -11,7 +11,8 @@ requires-python = ">=3.14"
 dependencies = [
     "streamlit (>=1.54.0,<2.0.0)",
     "pandas (>=2.0.0,<3.0.0)",
-    "numpy (>=2.4.2,<3.0.0)"
+    "numpy (>=2.4.2,<3.0.0)",
+    "kagglehub (>=1.0.0,<2.0.0)"
 ]
 
 
