@@ -2,11 +2,7 @@
 name = "COVID-19 Vaccine Adverse Reactions"
 version = "1.0.0"
 description = "<UPDATE ME>"
-authors = [
-  {name = "S Brian Zavala", email = "stevenbrianzavala@gmail.com"},
-  {name = "Your Name", email = "you@example.com"},
-  {name = "Your Name", email = "you@example.com"}
-]
+authors = ["S Brian Zavala <stevenbrianzavala@gmail.com>"]
 requires-python = ">=3.10"
 dependencies = [
     "streamlit (>=1.54.0,<2.0.0)",
@@ -24,4 +20,4 @@ build-backend = "poetry.core.masonry.api"
 name = "COVID-19 Vaccine Adverse Reactions"
 version = "1.0.0"
 description = "<UPDATE ME>"
-authors = ["S Brian Zavala stevenbrianzavala@gmail.com"]
+authors = ["S Brian Zavala <stevenbrianzavala@gmail.com>"]
