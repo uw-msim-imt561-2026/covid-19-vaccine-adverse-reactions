@@ -17,28 +17,44 @@ streamlit run app.py
 - calls our .py
 - layout - grab from Lab06
 
+# data_VAERS.py (global)
+- cleans data for VAERS (references cleaning_VAERS.ipynb)
+
+# data_VAX.py (global)
+- cleans data for VAX (references cleaning_VAX.ipynb)
+
+# data_symptoms.py (global)
+- cleans data for symptoms (references cleaning_symptoms.ipynb)
+
 # data.py (global)
-- loads our cleaned data, what we reference
-- tab view for each script below (3 total tabs, shows each others work)
-
-# kpi.py (individual)
-- somebody A, fixed atop always
-
-# ot.py (individual)
-- somebody A, 1 viz (maybe change to line viz cuz over time)
-- suggested to take that over time viz from prototype and make separate tab for timebeing.
-
-# crs.py (individual)
-- somebody B
-
-# vaers.py (individual)
-- somebody C, counts of VAERS
+- loads cleaned dataframes from the above scripts, what we reference
+- merges cleaned dataframes from data_VAERS.py, data_VAX.py, data_symptoms.py into one dataframe
 
 # filters.py
+- sets up filtering for the app
 - dosage series - multiselect
 - sex - singleselect???
 - location - multiselect
 - prolly need - slider for time, see lab06 for how to do.
+
+# layouts.py
+- sets up tab view for each charts.py script (see scripts below)
+- 3 total tabs, each of us takes one tab - shows each other's work
+
+# kpi.py (individual)
+- somebody A, fixed atop always
+
+# charts_overtime.py (individual)
+- somebody A, 1 viz (maybe change to line viz cuz over time)
+- suggested to take that over time viz from prototype and make separate tab for timebeing
+- *We might change the barplot to a line plot
+
+# charts_common_symptoms.py (individual)
+- somebody B
+
+# charts_vaers.py (individual)
+- somebody C, counts of VAERS
+
 
 Plan:
 1) Figure out how to load data in data.py
