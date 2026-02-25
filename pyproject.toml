@@ -21,3 +21,4 @@ name = "COVID-19 Vaccine Adverse Reactions"
 version = "1.0.0"
 description = "<UPDATE ME>"
 authors = ["S Brian Zavala <stevenbrianzavala@gmail.com>"]
+package-mode = 'false'
