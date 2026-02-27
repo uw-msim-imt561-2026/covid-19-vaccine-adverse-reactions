@@ -23,7 +23,7 @@ for column in df_VAERS.columns:
 # remove whitespace from single-word str columns
 single_word_cols_VAERS = list(df_VAERS[['REVALIDATE','STATE','RPT_DATE','DIED','DATEDIED','L_THREAT','ER_VISIT','HOSPITAL','X_STAY','DISABLE','BIRTH_DEFECT','RECOVD','VAX_DATE','ONSET_DATE','V_ADMINBY','V_FUNDBY']])
 for col in single_word_cols_VAERS:
-    df_VAERS[col] = df_VAERS[col].replace(" ","")
+    df_VAERS[col] = df_VAERS[col].str.replace(" ","")
 
 
 ## Handle Numeric Columns
@@ -163,6 +163,4 @@ df_VAERS_filtered = df_VAERS_filtered.drop(index_rows_to_drop)
 
 ## Save cleaned VAERS dataframe to csv (for safekeeping)
 path_to_save = path + '/VAERSDATA_cleaned.csv'
-
-# save transformed symptoms dataframe to csv
 df_VAERS_filtered.to_csv(path_to_save)
