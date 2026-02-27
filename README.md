@@ -17,18 +17,19 @@ streamlit run app.py
 - calls our .py
 - layout - grab from Lab06
 
-# data_VAERS.py (global)
+# cleaning_VAERS.py (global)
 - cleans data for VAERS (references cleaning_VAERS.ipynb)
 
-# data_VAX.py (global)
+# cleaning_VAX.py (global)
 - cleans data for VAX (references cleaning_VAX.ipynb)
 
-# data_symptoms.py (global)
+# cleaning_symptoms.py (global)
 - cleans data for symptoms (references cleaning_symptoms.ipynb)
 
 # data.py (global)
 - loads cleaned dataframes from the above scripts, what we reference
 - merges cleaned dataframes from data_VAERS.py, data_VAX.py, data_symptoms.py into one dataframe
+- filters cleaned dataframes for just rows where VAX_MANU = Pfizer or Moderna
 
 # filters.py
 - sets up filtering for the app
