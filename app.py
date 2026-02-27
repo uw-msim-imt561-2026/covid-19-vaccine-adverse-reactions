@@ -28,8 +28,6 @@ def main() -> None:
     # -------------------------
     ## KPIS
     header_metrics()
-    #^ I believe this is redundant with a KPI TODO in filters.py.
-    # The headers metrics already have functional placeholder metrics, with real calculations, once fixed in that TODO.
 
     st.divider()
 
