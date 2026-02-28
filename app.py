@@ -28,8 +28,6 @@ def main() -> None:
     #st.title("COVID-19 VAERS Dashboard") <- replaced with st.image
     st.image("visualizations/logos/Header_VAERS.png",width='content',clamp=True) # prolly want to convert this to an .svg at some point
     st.caption("An interactive data visualization dashboard for adverse vaccine events and reactions.",text_alignment="left")
-    # Brian: Please don't judge me. I couldn't figure out how to get the header underline to align with the caption in an efficient way, like in the prototype.
-    # This is my hacky  way of doing it :( Source: https://stackoverflow.com/questions/15721373/how-do-i-ensure-that-whitespace-is-preserved-in-markdown
     # -------------------------
 
     ## Load Cached Data
