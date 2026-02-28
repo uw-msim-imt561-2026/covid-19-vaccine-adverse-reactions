@@ -127,7 +127,6 @@ def handle_date_outliers(df) -> pd.DataFrame:
 
     # drop dates before 2020
     df = df.drop(index_dates_below_2020)
-
     return df
 
 def handle_non_date_outliers(df) -> pd.DataFrame:
