@@ -1,7 +1,20 @@
 import streamlit as st
+import subprocess
+import sys
 
-## Grabs functions from other .py's
+## Grabs functions & scripts from other .py's
+from src import cleaning_VAERS
+from src import cleaning_vax
+from src import cleaning_symptoms
+from src.data import merge_dfs
 from src.layouts import header_metrics, body_layout_tabs
+
+## Run cleaning scripts
+# TODO - verify that the subprocess.run code below works for running cleaning scripts
+subprocess.run([f"{sys.executable}", "cleaning_VAERS.py"])
+subprocess.run([f"{sys.executable}", "cleaning_vax.py"])
+subprocess.run([f"{sys.executable}", "cleaning_symptoms.py"])
+# Streamlit subprocess documentation: https://docs.streamlit.io/knowledge-base/deploy/invoking-python-subprocess-deployed-streamlit-app
 
 def main() -> None:
     st.set_page_config(
@@ -15,6 +28,8 @@ def main() -> None:
     st.caption("TEAM VAERS: AJ Amrous, Em Stelter, and S Brian Zavala")
     # -------------------------
 
+    ## Load Cached Data
+    df = merge_dfs()
 
     # -------------------------
     ## Filters (sidebar by default)
