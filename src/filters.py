@@ -6,17 +6,17 @@ def render_filters() -> dict:
     """Rendering filter widgets and returning the chosen values."""
     st.sidebar.header("Filters")
 
-    vax_list = ['ALL'] + ['PFIZER',"MODERNA"] # was it just the two? did we want more?
+    vax_list = ['ALL'] + ['PFIZER',"MODERNA"] # get rid of this when df is ready
     #vax_list = ["All"] + sorted(df["VAX_MANU"].unique().tolist()) <- replace when df functions
 
-    state_list = ['ALL'] + ['CA',"OR","WA"]
+    state_list = ['ALL'] + ['CA',"OR","WA"] # get rid of this when df is ready
     #state_list = ["All"] + sorted(df["STATE"].unique().tolist()) <- replace when df functions
 
     vax = st.sidebar.selectbox("Vaccine Type", vax_list, index=0)
     state = st.sidebar.multiselect("State", state_list, default=state_list)
 
     # Dosage Series slider
-    min_rt, max_rt = float(0),float(7)
+    min_rt, max_rt = float(0),float(7) # get rid of this when df is ready
     #min_rt, max_rt = float(df["VAX_DOSE_SERIES"].min()), float(df["VAX_DOSE_SERIES"].max()) # df function ready?
     dosage = st.sidebar.slider(
         "Dosage Series",
@@ -26,11 +26,25 @@ def render_filters() -> dict:
         step=1.0,
     )
 
+   # Report Date slider
+    min_dt, max_dt = 0, 24 # get rid of this when df is ready
+    # min_dt, max_dt = df["RECVDATE"].min(), df["RECVDATE"].max()  # I am not sure this will work, educated guess ¯\_(ツ)_/¯
+    report_date = st.sidebar.slider(
+        "Date of Report",
+        min_value=min_dt,
+        max_value=max_dt,
+        value=(min_dt,max_dt),
+        #step=???
+    )
+
     #return {
         #"vax": vax,
         #"state": state,
         #"dosage": dosage,
+        #"report_date": report_date
     #}
+    st.sidebar.divider()
+    st.sidebar.caption("IMT 561: Data Visualization  \nAJ Amrous, Em Stelter, S Brian Zavala")
 
 def apply_filters():
     """Applying filter selections to the dataframe."""
@@ -50,3 +64,6 @@ def apply_filters():
 
     #lo, hi = selections["dosage"]
     #out = out[(out["VAX_DOSE_SERIES"] >= lo) & (out["VAX_DOSE_SERIES"] <= hi)]
+
+    #lo, hi = selections["RECVDATE"]
+    #out = out[(out["RECVDATE"] >= lo) & (out["RECVDATE"] <= hi)]
