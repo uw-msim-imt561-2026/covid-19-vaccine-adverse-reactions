@@ -6,7 +6,6 @@ import seaborn as sns
 
 '''This notebook stores all the functions for plotting the graphs you want on the dashboard'''
 
-
 ## Number of VAERS Reports Over Time - BARPLOT VERSION
 # TODO - remove if we only want the lineplot version below
 # TODO - Figure out if we need to include calls for Moderna & Pfizer plots or if this will be handled in filtering
