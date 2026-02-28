@@ -30,6 +30,10 @@ def main() -> None:
 
     ## Load Cached Data
     df = merge_dfs()
+    # sanity check
+    print(df.head(5))
+    st.write("Row count: ", len(df))
+    st.dataframe(df.head(5))
 
     # -------------------------
     ## Filters (sidebar by default)
