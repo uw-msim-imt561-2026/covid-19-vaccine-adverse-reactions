@@ -21,7 +21,7 @@ for column in df_VAERS.columns:
         df_VAERS[column] = df_VAERS[column].str.strip()
 
 # remove whitespace from single-word str columns
-single_word_cols_VAERS = list(df_VAERS[['REVALIDATE','STATE','RPT_DATE','DIED','DATEDIED','L_THREAT','ER_VISIT','HOSPITAL','X_STAY','DISABLE','BIRTH_DEFECT','RECOVD','VAX_DATE','ONSET_DATE','V_ADMINBY','V_FUNDBY']])
+single_word_cols_VAERS = list(df_VAERS[['RECVDATE','STATE','RPT_DATE','DIED','DATEDIED','L_THREAT','ER_VISIT','HOSPITAL','X_STAY','DISABLE','BIRTH_DEFECT','RECOVD','VAX_DATE','ONSET_DATE','V_ADMINBY','V_FUNDBY']])
 for col in single_word_cols_VAERS:
     df_VAERS[col] = df_VAERS[col].str.replace(" ","")
 
