@@ -6,7 +6,9 @@ from pandas import DataFrame
 # required cache decorator - needed for streamlit to function
 @st.cache_data(show_spinner=False)
 def merge_dfs() -> pd.DataFrame:
-    """Merge cleaned dataframes from cleaning .py scripts into one dataframe, then filter for only Pfizer and Moderna rows."""
+    """Merge cleaned dataframes from cleaning .py scripts into one dataframe, then filter for only Pfizer and Moderna rows.
+    :rtype: pd.DataFrame
+    """
     # import dataframes from cleaned scripts
     from cleaning_VAERS import df_VAERS_filtered
     from cleaning_vax import df_vax
