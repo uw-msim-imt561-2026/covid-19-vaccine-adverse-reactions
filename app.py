@@ -52,32 +52,37 @@ def main() -> None:
     ## KPIS
     st.subheader("Key Insights",divider="grey")
     header_metrics()
-    st.divider()
 
     # -------------------------
     # Main body
     # -------------------------
-    # Tabs layout by default (3 tabs)
-    tab_choice = st.radio(
-        "Choose a layout for the body (lab demo uses tabs; assignment can remix):",
-        ["Tabs (3)", "Two Columns"],
-        horizontal=True,
-    )
+    st.subheader("Visualizations", divider="grey")
+    body_layout_tabs()
 
-    if tab_choice == "Tabs (3)":
-        body_layout_tabs()
-    else:
+    # -------------------------
+    # Alt. Main body from Lab06; look at table with a specific visual
+    # -------------------------
+    # Tabs layout by default (3 tabs)
+    #tab_choice = st.radio(
+        #"Choose a layout for the body (lab demo uses tabs; assignment can remix):",
+        #["Tabs (3)", "Two Columns"],
+        #horizontal=True,
+    #)
+
+    #if tab_choice == "Tabs (3)":
+        #body_layout_tabs()
+    #else:
         # -------------------------
         # - left column: a chart
         # - right column: a table
         # -------------------------
-        col1, col2 = st.columns(2)
-        with col1:
-            st.subheader("Response Time Distribution")
+        #col1, col2 = st.columns(2)
+        #with col1:
+            #st.subheader("Response Time Distribution")
             #plot_response_hist(df_f)
 
-        with col2:
-            st.subheader("Filtered Rows")
+        #with col2:
+            #st.subheader("Filtered Rows")
             #st.dataframe(df_f, use_container_width=True, height=420)
 
 if __name__ == "__main__":
