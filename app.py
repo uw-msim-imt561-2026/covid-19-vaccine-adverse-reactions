@@ -8,6 +8,7 @@ import sys
 #from src import cleaning_symptoms
 from src.data import merge_dfs
 from src.layouts import header_metrics, body_layout_tabs
+from src.filters import render_filters, apply_filters
 
 ## Run cleaning scripts
 # TODO - verify that the subprocess.run code below works for running cleaning scripts
@@ -26,7 +27,10 @@ def main() -> None:
     ## Header (sidebar by default)
     #st.title("COVID-19 VAERS Dashboard") <- replaced with st.image
     st.image("visualizations/logos/Header_VAERS.png",width='content',clamp=True) # prolly want to convert this to an .svg at some point
-    st.caption("An interactive data visualization dashboard for adverse vaccine events and reactions.",text_alignment="center")
+    st.caption("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+               "An interactive data visualization dashboard for adverse vaccine events and reactions.",text_alignment="left")
+    # Brian: Please don't judge me. I couldn't figure out how to get the header underline to align with the caption in an efficient way, like in the prototype.
+    # This is my hacky  way of doing it :( Source: https://stackoverflow.com/questions/15721373/how-do-i-ensure-that-whitespace-is-preserved-in-markdown
     # -------------------------
 
     ## Load Cached Data
@@ -39,7 +43,7 @@ def main() -> None:
     # -------------------------
     ## Filters (sidebar by default)
     # render_filters returns a dictionary of user selections
-    #selections = render_filters(df)
+    selections = render_filters()
 
     # apply_filters returns a filtered dataframe based on selections
     #df_f = apply_filters(df, selections)
@@ -47,8 +51,8 @@ def main() -> None:
 
     # -------------------------
     ## KPIS
+    st.subheader("Key Insights",divider="grey")
     header_metrics()
-
     st.divider()
 
     # -------------------------
