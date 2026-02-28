@@ -48,7 +48,7 @@ def plot_reports_overtime_bar(df: pd.DataFrame):
     ax.set_title('Number of COVID-19 VAERS Reports Over Time', fontsize=20)
     plt.tight_layout()
 
-    # call streamlit plot command
+    # streamlit plot command
     st.plotly_chart(fig, use_container_width=True) # graph will be dynamically sized in layout
 
 
@@ -76,6 +76,7 @@ def plot_most_common_symptoms(df: pd.DataFrame):
     ax.set_title('Most Common COVID-19 VAERS Symptoms', fontsize=18)
     plt.tight_layout()
 
+    # streamlit plot command
     st.plotly_chart(fig, use_container_width=True)
 
 ## Patient Age Distribution
@@ -104,5 +105,56 @@ def plot_patient_ages(df: pd.DataFrame):
     ax.set_title('Number of VAERS Reports by Patient Age', fontsize=16)
     plt.tight_layout()
 
+    # streamlit plot command
     st.plotly_chart(fig, use_container_width=True)
+
+## Number of Reports by Patient Sex
+def plot_num_reports_sex(df: pd.DataFrame):
+    if df.empty:
+        st.info("No rows match your filters.")
+        return
+
+    #create groupby object
+    bar_grouped = df.groupby(by=['SEX']).agg(report_count=("VAERS_ID", 'count'))
+
+    # bar chart
+    fig, ax = plt.subplots(figsize=(12, 4))
+    sns.barplot(data=bar_grouped, x='SEX', y='report_count', legend=False, width=0.5,
+                gap=0.1)  # seaborn horizontal chart
+    for container in ax.containers:
+        ax.bar_label(container, fontsize=12)
+    ax.set_xlabel('Number of Adverse Events', fontsize=12)
+    ax.set_ylabel('Patient Sex', fontsize=12)
+    ax.set_title('Number of VAERS Reports by Patient Sex', fontsize=14)
+    plt.tight_layout()
+
+    # streamlit plot command
+    st.plotly_chart(fig, use_container_width=True)
+
+## Number of Reports by Patient Location
+# TODO - double-check filtering and create another view of this chart sorted by counts rather than alphabetical
+def plot_num_reports_loc(df: pd.DataFrame):
+    if df.empty:
+        st.info("No rows match your filters.")
+        return
+
+    # create groupby object
+    bar_grouped = df.groupby(["STATE"]).agg(report_count=("VAERS_ID", 'count'))
+    # bar chart
+    fig, ax = plt.subplots(figsize=(10, 20))
+    sns.barplot(data=bar_grouped, x='report_count', y='STATE', legend=False, width=0.5, gap=0.1)  # seaborn horizontal chart
+    for container in ax.containers:
+        ax.bar_label(container, fontsize=12)
+    ax.set_xlabel('Number of Adverse Events', fontsize=12)
+    ax.set_ylabel('Patient Location (US State or Territory)', fontsize=12)
+    ax.set_title('Number of COVID-19 VAERS Events by Patient Location', fontsize=14)
+    plt.tight_layout()
+
+    # streamlit plot command
+    st.plotly_chart(fig, use_container_width=True)
+
+
+
+
+
 
