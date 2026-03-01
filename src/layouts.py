@@ -14,27 +14,27 @@ def header_metrics() -> None:
         st.metric("Total adverse events  \nin current month",1)
         # This section just demonstrates how we can do preattentive attributes using markdowns.
         if temporary_c4 == 0:
-            st.markdown(f''':green-background[:green[↑{100}%]]''')
+            st.markdown(f''':red-background[:red[↑{100}%]]''')
         elif temporary_c4 == 1:
-            st.markdown(f''':red-background[:red[↓{50}%]]''')
+            st.markdown(f''':green-background[:green[↓{50}%]]''')
         elif temporary_c4 == 2:
             st.markdown(f''':yellow-background[:yellow[N/A]]''')
     with c2:
         st.metric("Total number of  \nHospitalizations",2)
         # This section just demonstrates how we can do preattentive attributes using markdowns.
         if temporary_c5 == 0:
-            st.markdown(f''':green-background[:green[↑{100}%]]''')
+            st.markdown(f''':red-background[:red[↑{100}%]]''')
         elif temporary_c5 == 1:
-            st.markdown(f''':red-background[:red[↓{50}%]]''')
+            st.markdown(f''':green-background[:green[↓{50}%]]''')
         elif temporary_c5 == 2:
             st.markdown(f''':yellow-background[:yellow[N/A]]''')
     with c3:
         st.metric("% of reported  \ndeaths",3)
         # This section just demonstrates how we can do preattentive attributes using markdowns.
         if temporary_c6 == 0:
-            st.markdown(f''':green-background[↑INCREASE%]''')
+            st.markdown(f''':red-background[:red[↑{100}%]]''')
         elif temporary_c6 == 1:
-            st.markdown(f''':red-background[:red[↓{50}%]]''')
+            st.markdown(f''':green-background[:green[↓{50}%]]''')
         elif temporary_c6 == 2:
             st.markdown(f''':yellow-background[:yellow[N/A]]''')
 
@@ -44,10 +44,10 @@ def header_metrics() -> None:
 def body_layout_tabs() -> None:
     # body_layout_tabs(df: pd.DataFrame) <--- update this when dataframe is ready
     """Tabs layout with 3 default tabs."""
-    t1, t2, t3 = st.tabs(["Reactions Over Time","Adverse Events", "Most Common Symptoms"])
+    t1, t2, t3 = st.tabs(["Events Over Time","Adverse Events", "Most Common Symptoms"])
     with t1:
-        st.subheader("Reactions Over Time")
-        tab_choice = st.radio(''':grey[Study the frequency of adverse events reported over time.]''',
+        st.subheader("Events Over Time")
+        tab_choice = st.radio(''':grey[Study the frequency of adverse reaction events reported over time.]''',
         ["Bar", "Line"],
         horizontal=True,
         )
@@ -72,6 +72,9 @@ def body_layout_tabs() -> None:
         st.caption("Keep track of the most common symptoms reported with an adverse event.")
         # plot_most_common_symptoms(df) #<-chart function here
         st.info("MCS Chart.")
+        st.info("Note: As per CDC Guideline, COVID‑19 illness may appear in VAERS reports when "
+                "it occurs after vaccination; this reflects the system’s design to collect all "
+                "post‑vaccination events for signal detection.")
 
         # If we want people to download our data, we'd use this guy in some way.
         #st.download_button(
