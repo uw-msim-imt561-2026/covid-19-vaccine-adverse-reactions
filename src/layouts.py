@@ -66,7 +66,6 @@ def body_layout_tabs(df) -> None:
         st.caption("Look into the frequency of adverse events across specific demographics.")
         plot_patient_ages(df) #<-chart function here
         plot_num_reports_sex(df) #<-chart function here
-        st.info("Sex chart.")
         plot_num_reports_loc(df) #<-chart function here
         st.info("Location chart.")
     with t3:
