@@ -87,28 +87,23 @@ def plot_patient_ages(df: pd.DataFrame):
         st.info("No rows match your filters.")
         return
 
-    # plot distribution - patient age
-    fig, ax = plt.subplots(figsize=(10, 8))
-    patient_age_overall = sns.histplot(data=df, x="AGE_YRS", legend=True)
-
-    mean_age = str(round(df['AGE_YRS'].mean(), 2))
-    median_age = str(round(df['AGE_YRS'].median(), 2))
-    max_age = str(round(df['AGE_YRS'].max(), 2))
-    min_age = str(round(df['AGE_YRS'].min(), 2))
-
-    plt.axvline(x=df.AGE_YRS.mean(),
-                color='orange', lw=2.0, label='Average Age: ' + mean_age)
-    plt.axvline(x=df.AGE_YRS.median(), color='blue', lw=2.0, label='Median Age: ' + median_age)
-    plt.axvline(x=df.AGE_YRS.max(), color='red', lw=2.0, label='Max Age: ' + max_age)
-    plt.axvline(x=df.AGE_YRS.min(), color='red', lw=2.0, label='Min Age: ' + min_age)
-    plt.legend(loc='upper left')
-    ax.set_xlabel('Patient Age in Years', fontsize=12)
-    ax.set_ylabel('Number of VAERS Reports', fontsize=12)
-    ax.set_title('Number of VAERS Reports by Patient Age', fontsize=16)
-    plt.tight_layout()
+    labels = {'AGE_YRS': 'Patient Age (Years)', 'count': 'Number of VAERS Reports'}
+    mean_age = round(df['AGE_YRS'].mean(), 2)
+    median_age = round(df['AGE_YRS'].median(), 2)
+    max_age = round(df['AGE_YRS'].max(), 2)
+    min_age = round(df['AGE_YRS'].min(), 2)
+    fig = px.histogram(df, x="AGE_YRS", title="Number of VAERS Reports by Patient Age", labels=labels)
+    fig.add_vline(x=mean_age, line_width=3, annotation_text=("Average Age: " + str(mean_age)),
+                  annotation_position="top left")
+    fig.add_vline(x=median_age, line_width=3, annotation_text=("Median Age: " + str(median_age)),
+                  annotation_position="top right")
+    fig.add_vline(x=max_age, line_width=3, annotation_text=("Max Age: " + str(max_age)),
+                  annotation_position="top right")
+    fig.add_vline(x=min_age, line_width=3, annotation_text=("Min Age: " + str(min_age)),
+                  annotation_position="top right")
 
     # streamlit plot command
-    st.pyplot(fig, width='stretch') # graph will be dynamically sized in layout
+    st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
 
 ## Number of Reports by Patient Sex
 def plot_num_reports_sex(df: pd.DataFrame):
