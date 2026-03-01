@@ -58,10 +58,8 @@ def body_layout_tabs(df) -> None:
         )
         if tab_choice == "Bar":
             plot_reports_overtime_bar(df) #<-chart function here
-            st.info("Bar graph.")
         elif tab_choice == "Line":
             plot_reports_overtime_line(df) #<-chart function here
-            st.info("Line chart.")
 
     with t2:
         st.subheader("Adverse Events")
@@ -76,7 +74,6 @@ def body_layout_tabs(df) -> None:
         st.subheader("Most Common Symptoms")
         st.caption("Keep track of the most common symptoms reported with an adverse event.")
         plot_most_common_symptoms(df) #<-chart function here
-        st.info("MCS Chart.")
         st.info("Note: As per CDC Guideline, COVID‑19 illness may appear in VAERS reports when "
                 "it occurs after vaccination; this reflects the system’s design to collect all "
                 "post‑vaccination events for signal detection.")
