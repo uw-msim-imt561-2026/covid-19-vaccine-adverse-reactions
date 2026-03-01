@@ -15,8 +15,8 @@ def render_filters(df: pd.DataFrame) -> dict:
     state = st.sidebar.multiselect("State", state_list, default=state_list)
 
     # Dosage Series slider
-    min_rt, max_rt = float(0), float(7)  # get rid of this when df is ready
-    # min_rt, max_rt = float(df["VAX_DOSE_SERIES"].min()), float(df["VAX_DOSE_SERIES"].max()) # df function ready?
+    #min_rt, max_rt = float(0), float(7)  # get rid of this when df is ready
+    min_rt, max_rt = float(df["VAX_DOSE_SERIES"].min()), float(df["VAX_DOSE_SERIES"].max())
     dosage = st.sidebar.slider(
         "Dosage Series",
         min_value=0.0,
@@ -39,7 +39,7 @@ def render_filters(df: pd.DataFrame) -> dict:
     return {
         "vax": vax,
         "state": state,
-        #"dosage": dosage,
+        "dosage": dosage,
         #"report_date": report_date
     }
     st.sidebar.divider()
@@ -56,10 +56,12 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     if selections["state"] == ["All"] or selections["state"] == []:
         out = out
     else:
-       out = out[out["state_list"].isin(selections["state"])]
+        out = out[out["STATE"].isin(selections["state"])]
 
     #lo, hi = selections["dosage"]
     #out = out[(out["VAX_DOSE_SERIES"] >= lo) & (out["VAX_DOSE_SERIES"] <= hi)]
 
     #lo, hi = selections["RECVDATE"]
     #out = out[(out["RECVDATE"] >= lo) & (out["RECVDATE"] <= hi)]
+
+    #return out.reset_index(drop=True)
