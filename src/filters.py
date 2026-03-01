@@ -4,7 +4,10 @@ import streamlit as st
 def render_filters(df: pd.DataFrame) -> dict:
     """Rendering filter widgets and returning the chosen values."""
     st.sidebar.header("FILTERS")
+
+    ## VACCINE SECTION
     st.sidebar.subheader("Vaccine",divider="grey")
+
     # Vaccine Type
     vax_list = ["All"] + sorted(df["VAX_MANU"].unique().tolist())
     vax = st.sidebar.selectbox("Vaccine Type", vax_list, index=0)
@@ -19,9 +22,23 @@ def render_filters(df: pd.DataFrame) -> dict:
         value=(0.0, float(min(30.0, max_rt))),
         step=1.0,
     )
+
+    ## DEMOGRAPHICS SECTION
     st.sidebar.subheader("Demographic", divider="grey")
+
+    # Sex
     sex_list = ["All"] + sorted(df["SEX"].unique().tolist())
-    sex = st.sidebar.selectbox("Sex", vax_list, index=0)
+    sex = st.sidebar.selectbox("Sex", sex_list, index=0)
+
+    # Age
+    min_at, max_at = float(df["AGE_YRS"].min()), float(df["AGE_YRS"].max())
+    age = st.sidebar.slider(
+        "Age",
+        min_value=0.0,
+        max_value=float(max_at),
+        value=(0.0, float(min(110.0, max_at))),
+        step=1.0,
+    )
 
     # State Location
     state_list = ["All"] + sorted(df["STATE"].unique().tolist())
@@ -42,17 +59,17 @@ def render_filters(df: pd.DataFrame) -> dict:
     # Source: https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_pydatetime.html
     ## ^ Makes it so the min and max of a datetime is returned in a way that Streamlit likes.
 
-    st.sidebar.subheader("", divider="grey")
-    st.sidebar.caption("IMT 561: Data Visualization  \nAJ Amrous, Em Stelter, S Brian Zavala")
+    #st.sidebar.subheader("", divider="grey")
+    #st.sidebar.caption("IMT 561: Data Visualization  \nAJ Amrous, Em Stelter, S Brian Zavala")
 
     return {
         "vax": vax,
         "state": state,
         "dosage": dosage,
-        "report_date": report_date
+        "report_date": report_date,
+        "sex": sex,
+        "age": age
     }
-
-
 
 def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     """Applying filter selections to the dataframe."""
@@ -62,6 +79,9 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     if selections["vax"] != "All":
         out = out[out["VAX_MANU"] == selections["vax"]]
 
+    if selections["sex"] != "All":
+        out = out[out["SEX"] == selections["sex"]]
+
     if selections["state"] == ["All"] or selections["state"] == []:
         out = out
     else:
@@ -69,6 +89,9 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
 
     lo, hi = selections["dosage"]
     out = out[(out["VAX_DOSE_SERIES"] >= lo) & (out["VAX_DOSE_SERIES"] <= hi)]
+
+    lo, hi = selections["age"]
+    out = out[(out["AGE_YRS"] >= lo) & (out["AGE_YRS"] <= hi)]
 
     lo, hi = selections["report_date"]
     out = out[(out["RECVDATE"] >= lo) & (out["RECVDATE"] <= hi)]
