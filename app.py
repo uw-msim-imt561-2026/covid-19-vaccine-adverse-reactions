@@ -28,7 +28,7 @@ def main() -> None:
     # -------------------------
     ## Filters (sidebar by default)
     # render_filters returns a dictionary of user selections
-    selections = render_filters()
+    selections = render_filters(df)
 
     # apply_filters returns a filtered dataframe based on selections
     #df_f = apply_filters(df, selections)
