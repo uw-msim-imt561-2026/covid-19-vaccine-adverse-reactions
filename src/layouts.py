@@ -44,17 +44,34 @@ def header_metrics() -> None:
 def body_layout_tabs() -> None:
     # body_layout_tabs(df: pd.DataFrame) <--- update this when dataframe is ready
     """Tabs layout with 3 default tabs."""
-    t1, t2 = st.tabs(["Adverse Events", "Most Common Symptoms"])
-
+    t1, t2, t3 = st.tabs(["Reactions Over Time","Adverse Events", "Most Common Symptoms"])
     with t1:
-        st.subheader("Welcome to Tab1")
-        #plot_response_hist(df) #<-chart function here
-        st.info("This is a chart!")
+        st.subheader("Reactions Over Time")
+        tab_choice = st.radio(''':grey[Study the frequency of adverse events reported over time.]''',
+        ["Bar", "Line"],
+        horizontal=True,
+        )
+        if tab_choice == "Bar":
+            # plot_reports_overtime_bar(df) #<-chart function here
+            st.info("Bar graph.")
+        elif tab_choice == "Line":
+            # plot_reports_overtime_line(df) #<-chart function here
+            st.info("Line chart.")
 
     with t2:
-        st.subheader("Buenos dias, you're in Tab2")
-        # plot_response_hist(df) #<-chart function here
-        st.info("This is a chart again!")
+        st.subheader("Adverse Events")
+        st.caption("Look into the frequency of adverse events across specific demographics.")
+        # plot_patient_ages(df) #<-chart function here
+        st.info("Age chart.")
+        # plot_num_reports_sex(df) #<-chart function here
+        st.info("Sex chart.")
+        #  plot_num_reports_loc(df) #<-chart function here
+        st.info("Location chart.")
+    with t3:
+        st.subheader("Most Common Symptoms")
+        st.caption("Keep track of the most common symptoms reported with an adverse event.")
+        # plot_most_common_symptoms(df) #<-chart function here
+        st.info("MCS Chart.")
 
         # If we want people to download our data, we'd use this guy in some way.
         #st.download_button(
