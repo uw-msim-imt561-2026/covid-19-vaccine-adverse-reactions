@@ -7,4 +7,7 @@ import streamlit as st
 def load_data() -> pd.DataFrame:
     df = pd.read_csv('data/west_states_filtered.csv')
     df["RECVDATE"] = pd.to_datetime(df["RECVDATE"])
+    df['SEX'] = df['SEX'].replace('F', 'Female')
+    df['SEX'] = df['SEX'].replace('M', 'Male')
+    df['SEX'] = df['SEX'].replace('U', 'Unknown or Undisclosed')
     return df
