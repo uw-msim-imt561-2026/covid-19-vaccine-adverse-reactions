@@ -31,7 +31,7 @@ def main() -> None:
     selections = render_filters(df)
 
     # apply_filters returns a filtered dataframe based on selections
-    #df_f = apply_filters(df, selections)
+    df_f = apply_filters(df, selections)
     # -------------------------
 
     # -------------------------

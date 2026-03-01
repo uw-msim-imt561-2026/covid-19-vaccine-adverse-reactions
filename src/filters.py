@@ -8,8 +8,8 @@ def render_filters(df: pd.DataFrame) -> dict:
     #vax_list = ['ALL'] + ['PFIZER',"MODERNA"] # get rid of this when df is ready
     vax_list = ["All"] + sorted(df["VAX_MANU"].unique().tolist())
 
-    state_list = ['ALL'] + ['CA',"OR","WA"] # get rid of this when df is ready
-    #state_list = ["All"] + sorted(df["STATE"].unique().tolist()) <- replace when df functions
+    #state_list = ['ALL'] + ['CA',"OR","WA"] # get rid of this when df is ready
+    state_list = ["All"] + sorted(df["STATE"].unique().tolist())
 
     vax = st.sidebar.selectbox("Vaccine Type", vax_list, index=0)
     state = st.sidebar.multiselect("State", state_list, default=state_list)
@@ -38,7 +38,7 @@ def render_filters(df: pd.DataFrame) -> dict:
 
     return {
         "vax": vax,
-        #"state": state,
+        "state": state,
         #"dosage": dosage,
         #"report_date": report_date
     }
@@ -53,10 +53,10 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     if selections["VAX_MANU"] != "All":
         out = out[out["VAX_MANU"] == selections["VAX_MANU"]]
 
-    #if selections["STATE"] == ["All"] or selections["STATE"] == []:
-        #out = out
-    #else:
-       #out = out[out["STATE"].isin(selections["STATE"])]
+    if selections["STATE"] == ["All"] or selections["STATE"] == []:
+        out = out
+    else:
+       out = out[out["STATE"].isin(selections["STATE"])]
 
     #lo, hi = selections["dosage"]
     #out = out[(out["VAX_DOSE_SERIES"] >= lo) & (out["VAX_DOSE_SERIES"] <= hi)]
