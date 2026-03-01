@@ -121,27 +121,21 @@ def plot_num_reports_sex(df: pd.DataFrame):
     st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
 
 ## Number of Reports by Patient Location
-# TODO - double-check filtering and create another view of this chart sorted by counts rather than alphabetical
 def plot_num_reports_loc(df: pd.DataFrame):
     if df.empty:
         st.info("No rows match your filters.")
         return
 
-    # create groupby object
-    bar_grouped = df.groupby(["STATE"]).agg(report_count=("VAERS_ID", 'count'))
-    # bar chart
-    fig, ax = plt.subplots(figsize=(10, 20))
-    sns.barplot(data=bar_grouped, x='report_count', y='STATE', legend=False, width=0.5, gap=0.1)  # seaborn horizontal chart
-    for container in ax.containers:
-        ax.bar_label(container, fontsize=12)
-    ax.set_xlabel('Number of Adverse Events', fontsize=12)
-    ax.set_ylabel('Patient Location (US State or Territory)', fontsize=12)
-    ax.set_title('Number of COVID-19 VAERS Events by Patient Location', fontsize=14)
-    plt.tight_layout()
+    # plotly bar chart
+    labels = {'STATE': 'U.S. State or Territory', 'report_count': 'Number of Adverse Events'}
+    grouped_state = df.groupby(by=['STATE']).agg(report_count=("VAERS_ID", 'count'))
+    grouped_state = grouped_state.reset_index()
+    grouped_state = grouped_state.sort_values(by='report_count', ascending=False)
+    fig = px.bar(grouped_state, x="STATE", y="report_count", labels=labels,
+                 title='Number of VAERS Reports by Patient Location')
 
     # streamlit plot command
-    st.pyplot(fig, width='stretch') # graph will be dynamically sized in layout
-
+    st.plotly_chart(fig, width='stretch')  # graph will be dynamically sized in layout
 
 
 
