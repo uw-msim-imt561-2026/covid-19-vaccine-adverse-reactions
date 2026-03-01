@@ -46,7 +46,6 @@ def header_metrics() -> None:
 
 # Source: https://docs.streamlit.io/develop/api-reference/text/st.markdown
 
-
 def body_layout_tabs(df) -> None:
     # body_layout_tabs(df: pd.DataFrame) <--- update this when dataframe is ready
     """Tabs layout with 3 default tabs."""
@@ -67,16 +66,16 @@ def body_layout_tabs(df) -> None:
     with t2:
         st.subheader("Adverse Events")
         st.caption("Look into the frequency of adverse events across specific demographics.")
-        # plot_patient_ages(df) #<-chart function here
+        plot_patient_ages(df) #<-chart function here
         st.info("Age chart.")
-        # plot_num_reports_sex(df) #<-chart function here
+        plot_num_reports_sex(df) #<-chart function here
         st.info("Sex chart.")
-        #  plot_num_reports_loc(df) #<-chart function here
+        plot_num_reports_loc(df) #<-chart function here
         st.info("Location chart.")
     with t3:
         st.subheader("Most Common Symptoms")
         st.caption("Keep track of the most common symptoms reported with an adverse event.")
-        # plot_most_common_symptoms(df) #<-chart function here
+        plot_most_common_symptoms(df) #<-chart function here
         st.info("MCS Chart.")
         st.info("Note: As per CDC Guideline, COVID‑19 illness may appear in VAERS reports when "
                 "it occurs after vaccination; this reflects the system’s design to collect all "
