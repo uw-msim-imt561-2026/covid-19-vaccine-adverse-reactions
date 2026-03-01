@@ -7,23 +7,13 @@ import plotly.express as px
 '''This notebook stores all the functions for plotting the graphs you want on the dashboard'''
 
 ## Number of VAERS Reports Over Time - BARPLOT VERSION
-# TODO - remove if we only want the lineplot version below
-# TODO - Figure out if we need to include calls for Moderna & Pfizer plots or if this will be handled in filtering
-
 def plot_reports_overtime_bar(df: pd.DataFrame):
     """Plotting a bar chart of the number of VAERS reports over time (per month)."""
     if type(df['ONSET_DATE']) == str:
         # sanity check to ensure datetime objects are present
-        df['RECVDATE'] = df['RECVDATE'].astype('datetime64[ns]')
-        df['DATEDIED'] = df['DATEDIED'].astype('datetime64[ns]')
-        df['VAX_DATE'] = df['VAX_DATE'].astype('datetime64[ns]')
         df['ONSET_DATE'] = df['ONSET_DATE'].astype('datetime64[ns]')
-        df['TODAYS_DATE'] = df['TODAYS_DATE'].astype('datetime64[ns]')
-        df['RPT_DATE'] = df['RPT_DATE'].astype('datetime64[ns]')
-
         # add Year, Month, and MonthYear columns
         df['ONSET_YEAR'] = df['ONSET_DATE'].dt.year
-        df['ONSET_MONTH'] = df['ONSET_DATE'].dt.strftime('%b')
         df['ONSET_MONTHYEAR'] = df['ONSET_DATE'].dt.strftime('%Y-%m')
 
     if df.empty:
@@ -47,16 +37,9 @@ def plot_reports_overtime_line(df: pd.DataFrame):
     """Plotting a line chart of the number of VAERS reports over time (per month)."""
     if type(df['ONSET_DATE']) == str:
         # sanity check to ensure datetime objects are present
-        df['RECVDATE'] = df['RECVDATE'].astype('datetime64[ns]')
-        df['DATEDIED'] = df['DATEDIED'].astype('datetime64[ns]')
-        df['VAX_DATE'] = df['VAX_DATE'].astype('datetime64[ns]')
         df['ONSET_DATE'] = df['ONSET_DATE'].astype('datetime64[ns]')
-        df['TODAYS_DATE'] = df['TODAYS_DATE'].astype('datetime64[ns]')
-        df['RPT_DATE'] = df['RPT_DATE'].astype('datetime64[ns]')
-
         # add Year, Month, and MonthYear columns
         df['ONSET_YEAR'] = df['ONSET_DATE'].dt.year
-        df['ONSET_MONTH'] = df['ONSET_DATE'].dt.strftime('%b')
         df['ONSET_MONTHYEAR'] = df['ONSET_DATE'].dt.strftime('%Y-%m')
 
     if df.empty:
@@ -77,31 +60,26 @@ def plot_reports_overtime_line(df: pd.DataFrame):
     st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
 
 ## Most Common Symptoms
-# TODO - maybe change title to 'Top 10 Reported Symptoms'
-# TODO - figure out if we need to include functions for filtered graphs, or if filters.py will handle
 def plot_most_common_symptoms(df: pd.DataFrame):
     """Plotting a simple bar chart of the most common symptoms reported."""
     if df.empty:
         st.info("No rows match your filters.")
         return
 
-    # get counts of 10 most common symptoms
+    # plot counts of 10 most common symptoms
     symptom_counts = df['symptom'].value_counts()
     df_symptom_counts = symptom_counts.to_frame()
+    df_symptom_counts = df_symptom_counts.reset_index()
+    df_symptom_counts = df_symptom_counts.sort_values(by='count', ascending=False)
+    df_symptom_counts[0:10]
 
     # plot bar chart
-    fig, ax = plt.subplots(figsize=(10, 8))
-    most_common_symptoms_overall = sns.barplot(data=df_symptom_counts[0:10], x="count", y="symptom", hue='symptom',
-                                               width=0.5, gap=0.1)
-    for container in ax.containers:
-        ax.bar_label(container, fontsize=10, label_type='center', color='black')
-    ax.set_xlabel('Symptom Counts', fontsize=14)
-    ax.set_ylabel('Symptom', fontsize=14)
-    ax.set_title('Most Common COVID-19 VAERS Symptoms', fontsize=18)
-    plt.tight_layout()
+    labels = {'symptom': 'Symptom', 'count': 'Symptom Counts'}
+    fig = px.bar(df_symptom_counts[0:10], x="count", y="symptom", labels=labels,
+                 title='Most Commonly Reported COVID-19 VAERS Symptoms')
 
     # streamlit plot command
-    st.pyplot(fig, width='stretch') # graph will be dynamically sized in layout
+    st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
 
 ## Patient Age Distribution
 def plot_patient_ages(df: pd.DataFrame):
