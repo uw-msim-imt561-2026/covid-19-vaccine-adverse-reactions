@@ -67,7 +67,6 @@ def body_layout_tabs(df) -> None:
         plot_patient_ages(df) #<-chart function here
         plot_num_reports_sex(df) #<-chart function here
         plot_num_reports_loc(df) #<-chart function here
-        st.info("Location chart.")
     with t3:
         st.subheader("Most Common Symptoms")
         st.caption("Keep track of the most common symptoms reported with an adverse event.")
