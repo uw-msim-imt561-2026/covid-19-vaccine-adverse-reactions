@@ -111,22 +111,14 @@ def plot_num_reports_sex(df: pd.DataFrame):
         st.info("No rows match your filters.")
         return
 
-    #create groupby object
-    bar_grouped = df.groupby(by=['SEX']).agg(report_count=("VAERS_ID", 'count'))
-
-    # bar chart
-    fig, ax = plt.subplots(figsize=(12, 4))
-    sns.barplot(data=bar_grouped, x='SEX', y='report_count', legend=False, width=0.5,
-                gap=0.1)  # seaborn horizontal chart
-    for container in ax.containers:
-        ax.bar_label(container, fontsize=12)
-    ax.set_xlabel('Number of Adverse Events', fontsize=12)
-    ax.set_ylabel('Patient Sex', fontsize=12)
-    ax.set_title('Number of VAERS Reports by Patient Sex', fontsize=14)
-    plt.tight_layout()
+    # plotly bar chart
+    labels = {'SEX': 'Patient Sex', 'report_count': 'Number of Adverse Events'}
+    grouped_sex = df.groupby(by=['SEX']).agg(report_count=("VAERS_ID", 'count'))
+    grouped_sex = grouped_sex.reset_index()
+    fig = px.bar(grouped_sex, x="SEX", y="report_count", labels=labels, title='Number of VAERS Reports by Patient Sex')
 
     # streamlit plot command
-    st.pyplot(fig, width='stretch') # graph will be dynamically sized in layout
+    st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
 
 ## Number of Reports by Patient Location
 # TODO - double-check filtering and create another view of this chart sorted by counts rather than alphabetical
