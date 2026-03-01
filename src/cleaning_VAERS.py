@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 
-def handle_whitespace(df) -> pd.DataFrame:
+def handle_whitespace_vaers(df) -> pd.DataFrame:
     """Removes whitespace from string-type columns."""
     for col in df.columns:
         if df[col].dtype == 'str':
@@ -14,7 +14,7 @@ def handle_whitespace(df) -> pd.DataFrame:
         df[col] = df[col].str.replace(" ", "")
     return df
 
-def handle_numeric_cols(df) -> pd.DataFrame:
+def handle_numeric_vaers(df) -> pd.DataFrame:
     """Ensures numeric columns are Int64 or Float type."""
     for col in df.columns:
         if df[col].dtype == 'int64':
