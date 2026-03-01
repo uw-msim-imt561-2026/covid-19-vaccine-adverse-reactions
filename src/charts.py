@@ -38,7 +38,6 @@ def plot_reports_overtime_bar(df: pd.DataFrame):
     # barplot (plotly.express version)
     labels = {'ONSET_MONTHYEAR':'Onset Month & Year', 'report_count':'Number of Reported Events'}
     fig = px.bar(bar_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels, title='Number of COVID-19 VAERS Reports Over Time')
-    fig.show()
 
     # streamlit plot command
     st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
