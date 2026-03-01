@@ -47,7 +47,6 @@ def render_filters(df: pd.DataFrame) -> dict:
 
 def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     """Applying filter selections to the dataframe."""
-
     out = df.copy()
 
     if selections["VAX_MANU"] != "All":
@@ -55,6 +54,7 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
 
     if selections["STATE"] == ["All"] or selections["STATE"] == []:
         out = out
+
     else:
        out = out[out["STATE"].isin(selections["STATE"])]
 
