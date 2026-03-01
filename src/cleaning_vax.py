@@ -63,7 +63,7 @@ def remove_duplicates_vax(df: pd.DataFrame) -> pd.DataFrame:
 
 def handle_outliers_vax(df: pd.DataFrame) -> pd.DataFrame:
     """Removes outliers for VAERSVAX.csv."""
-    from cleaning_VAERS import get_iqr_upper
+    from src.cleaning_VAERS import get_iqr_upper
     upper_threshold = get_iqr_upper(df['VAX_DOSE_SERIES'])
     idx_to_drop = (df.index[df['VAX_DOSE_SERIES'] < upper_threshold]).to_list()
     df = df.drop(idx_to_drop)

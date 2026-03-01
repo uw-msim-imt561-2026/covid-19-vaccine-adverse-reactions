@@ -1,9 +1,14 @@
 import streamlit as st
-import subprocess
-import sys
 
 ## Grabs functions & scripts from other .py's
-from src.data import merge_dfs
+from src.data import (download_datasets,
+                      load_vaers,
+                      load_vax,
+                      load_symptoms,
+                      clean_vaers,
+                      clean_vax,
+                      clean_symptoms,
+                      merge_dfs)
 from src.layouts import header_metrics, body_layout_tabs
 from src.filters import render_filters, apply_filters
 
@@ -20,12 +25,19 @@ def main() -> None:
     st.caption("An interactive data visualization dashboard for adverse vaccine events and reactions.",text_alignment="left")
     # -------------------------
 
-    ## Load Cached Data
-    #df = merge_dfs()
+    ## Load + Clean Cached Data
+    path = download_datasets()
+    df_VAERS = load_vaers(path)
+    df_vax = load_vax(path)
+    df_symptoms = load_symptoms(path)
+    df_vaers_cl = clean_vaers(df_VAERS)
+    df_vax_cl = clean_vax(df_vax)
+    df_symptoms_cl = clean_symptoms(df_symptoms)
+    df = merge_dfs(df_symptoms_cl, df_vaers_cl, df_vax_cl)
+
     # sanity check
-    #print(df.head(5))
-    #st.write("Row count: ", len(df))
-    #st.dataframe(df.head(5))
+    st.write("Row count: ", len(df))
+    st.dataframe(df.head(5))
 
     # -------------------------
     ## Filters (sidebar by default)
