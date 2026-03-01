@@ -61,7 +61,7 @@ def body_layout_tabs(df) -> None:
             plot_reports_overtime_bar(df) #<-chart function here
             st.info("Bar graph.")
         elif tab_choice == "Line":
-            # plot_reports_overtime_line(df) #<-chart function here
+            plot_reports_overtime_line(df) #<-chart function here
             st.info("Line chart.")
 
     with t2:

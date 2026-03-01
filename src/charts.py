@@ -33,6 +33,7 @@ def plot_reports_overtime_bar(df: pd.DataFrame):
     # sort values + create groupby object
     reports_overtime = df.sort_values(by='ONSET_DATE')
     bar_grouped = reports_overtime.groupby(by=["ONSET_MONTHYEAR"]).agg(report_count=("VAERS_ID", 'count'))
+    bar_grouped = bar_grouped.reset_index()
 
     # barplot (plotly.express version)
     labels = {'ONSET_MONTHYEAR':'Onset Month & Year', 'report_count':'Number of Reported Events'}
@@ -41,47 +42,6 @@ def plot_reports_overtime_bar(df: pd.DataFrame):
 
     # streamlit plot command
     st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
-
-# def plot_reports_overtime_bar(df: pd.DataFrame):
-    # """Plotting a bar chart of the number of VAERS reports over time (per month)."""
-    # if type(df['ONSET_DATE']) == str:
-        # sanity check to ensure datetime objects are present
-        # df['RECVDATE'] = df['RECVDATE'].astype('datetime64[ns]')
-        # df['DATEDIED'] = df['DATEDIED'].astype('datetime64[ns]')
-        # df['VAX_DATE'] = df['VAX_DATE'].astype('datetime64[ns]')
-        # df['ONSET_DATE'] = df['ONSET_DATE'].astype('datetime64[ns]')
-        # df['TODAYS_DATE'] = df['TODAYS_DATE'].astype('datetime64[ns]')
-        # df['RPT_DATE'] = df['RPT_DATE'].astype('datetime64[ns]')
-
-        # add Year, Month, and MonthYear columns
-        # df['ONSET_YEAR'] = df['ONSET_DATE'].dt.year
-        # df['ONSET_MONTH'] = df['ONSET_DATE'].dt.strftime('%b')
-        # df['ONSET_MONTHYEAR'] = df['ONSET_DATE'].dt.strftime('%Y-%m')
-
-    # if df.empty:
-        # st.info("No rows match your filters.")
-        # return
-
-    # sort values + create groupby object
-    # reports_overtime = df.sort_values(by='ONSET_DATE')
-    # bar_grouped = reports_overtime.groupby(by=["ONSET_MONTHYEAR"]).agg(report_count=("VAERS_ID", 'count'))
-
-    # set up bar chart
-    # fig, ax = plt.subplots(figsize=(25, 15))
-    # sns.barplot(data=bar_grouped, x="ONSET_MONTHYEAR", y="report_count", width=0.5, gap=0.1)
-    # for container in ax.containers:
-        # ax.bar_label(container, fontsize=14)
-    # ax.set_xlabel('Onset Month + Year', fontsize=18)
-    # ax.tick_params("x", rotation=45)
-    # ax.tick_params(axis='both', which='major', labelsize=14)
-    # ax.tick_params(axis='both', which='minor', labelsize=14)
-    # ax.set_ylabel('Number of Adverse Event Reports', fontsize=18)
-    # ax.set_title('Number of COVID-19 VAERS Reports Over Time', fontsize=20)
-    # plt.tight_layout()
-
-    # streamlit plot command
-    # st.pyplot(fig, width='stretch') # graph will be dynamically sized in layout
-
 
 ## Number VAERS Reports Over Time - LINEPLOT VERSION
 def plot_reports_overtime_line(df: pd.DataFrame):
@@ -107,21 +67,15 @@ def plot_reports_overtime_line(df: pd.DataFrame):
     # sort values + create groupby object
     reports_overtime = df.sort_values(by='ONSET_DATE')
     line_grouped = reports_overtime.groupby(by=["ONSET_MONTHYEAR"]).agg(report_count=("VAERS_ID", 'count'))
+    line_grouped = line_grouped.reset_index()
+
     # line plot
-    fig, ax = plt.subplots(figsize=(25, 15))
-    sns.lineplot(data=line_grouped, x="ONSET_MONTHYEAR", y="report_count", linewidth=3, color='red')
-    for container in ax.containers:
-        ax.bar_label(container, fontsize=14)
-    ax.set_xlabel('Onset Month + Year', fontsize=25)
-    ax.tick_params("x", rotation=45)
-    ax.tick_params(axis='both', which='major', labelsize=16)
-    ax.tick_params(axis='both', which='minor', labelsize=16)
-    ax.set_ylabel('Number of Adverse Event Reports', fontsize=25)
-    ax.set_title('Number of COVID-19 VAERS Reports Over Time', fontsize=30)
-    plt.tight_layout()
+    labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events'}
+    fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels,
+                  title='Number of COVID-19 VAERS Reports Over Time')
 
     # streamlit plot command
-    st.pyplot(fig, width='stretch') # graph will be dynamically sized in layout
+    st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
 
 ## Most Common Symptoms
 # TODO - maybe change title to 'Top 10 Reported Symptoms'
