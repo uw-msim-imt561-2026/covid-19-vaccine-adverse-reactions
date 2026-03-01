@@ -51,7 +51,7 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     out = df.copy()
 
     if selections["vax"] != "All":
-        out = out[out["vax"] == selections["vax"]]
+        out = out[out["VAX_MANU"] == selections["vax"]]
 
     if selections["state"] == ["All"] or selections["state"] == []:
         out = out
@@ -64,4 +64,4 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     #lo, hi = selections["RECVDATE"]
     #out = out[(out["RECVDATE"] >= lo) & (out["RECVDATE"] <= hi)]
 
-    #return out.reset_index(drop=True)
+    return out.reset_index(drop=True)
