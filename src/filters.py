@@ -1,13 +1,12 @@
 import pandas as pd
 import streamlit as st
 
-def render_filters() -> dict:
-   #def render_filters(df: pd.DataFrame) <-- make sure to put df: pd.DataFrame back when ready
+def render_filters(df: pd.DataFrame) -> dict:
     """Rendering filter widgets and returning the chosen values."""
     st.sidebar.header("Filters")
 
-    vax_list = ['ALL'] + ['PFIZER',"MODERNA"] # get rid of this when df is ready
-    #vax_list = ["All"] + sorted(df["VAX_MANU"].unique().tolist()) <- replace when df functions
+    #vax_list = ['ALL'] + ['PFIZER',"MODERNA"] # get rid of this when df is ready
+    vax_list = ["All"] + sorted(df["VAX_MANU"].unique().tolist())
 
     state_list = ['ALL'] + ['CA',"OR","WA"] # get rid of this when df is ready
     #state_list = ["All"] + sorted(df["STATE"].unique().tolist()) <- replace when df functions
@@ -37,25 +36,22 @@ def render_filters() -> dict:
         #step=???
     )
 
-    #return {
-        #"vax": vax,
+    return {
+        "vax": vax,
         #"state": state,
         #"dosage": dosage,
         #"report_date": report_date
-    #}
+    }
     st.sidebar.divider()
     st.sidebar.caption("IMT 561: Data Visualization  \nAJ Amrous, Em Stelter, S Brian Zavala")
 
-def apply_filters():
+def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     """Applying filter selections to the dataframe."""
 
-    #def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
-    pass #remove this at some point
+    out = df.copy()
 
-    #out = df.copy()
-
-    #if selections["VAX_MANU"] != "All":
-        #out = out[out["VAX_MANU"] == selections["VAX_MANU"]]
+    if selections["VAX_MANU"] != "All":
+        out = out[out["VAX_MANU"] == selections["VAX_MANU"]]
 
     #if selections["STATE"] == ["All"] or selections["STATE"] == []:
         #out = out
