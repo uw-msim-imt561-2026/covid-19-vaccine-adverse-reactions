@@ -15,8 +15,8 @@ def render_filters(df: pd.DataFrame) -> dict:
     state = st.sidebar.multiselect("State", state_list, default=state_list)
 
     # Dosage Series slider
-    min_rt, max_rt = float(0),float(7) # get rid of this when df is ready
-    #min_rt, max_rt = float(df["VAX_DOSE_SERIES"].min()), float(df["VAX_DOSE_SERIES"].max()) # df function ready?
+    min_rt, max_rt = float(0), float(7)  # get rid of this when df is ready
+    # min_rt, max_rt = float(df["VAX_DOSE_SERIES"].min()), float(df["VAX_DOSE_SERIES"].max()) # df function ready?
     dosage = st.sidebar.slider(
         "Dosage Series",
         min_value=0.0,
@@ -25,15 +25,15 @@ def render_filters(df: pd.DataFrame) -> dict:
         step=1.0,
     )
 
-   # Report Date slider
-    min_dt, max_dt = 0, 24 # get rid of this when df is ready
+    # Report Date slider
+    min_dt, max_dt = 0, 24  # get rid of this when df is ready
     # min_dt, max_dt = df["RECVDATE"].min(), df["RECVDATE"].max()  # I am not sure this will work, educated guess ¯\_(ツ)_/¯
     report_date = st.sidebar.slider(
         "Date of Report",
         min_value=min_dt,
         max_value=max_dt,
-        value=(min_dt,max_dt),
-        #step=???
+        value=(min_dt, max_dt),
+        # step=???
     )
 
     return {
@@ -49,14 +49,14 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     """Applying filter selections to the dataframe."""
     out = df.copy()
 
-    if selections["VAX_MANU"] != "All":
-        out = out[out["VAX_MANU"] == selections["VAX_MANU"]]
+    if selections["vax"] != "All":
+        out = out[out["vax"] == selections["vax"]]
 
-    if selections["STATE"] == ["All"] or selections["STATE"] == []:
+    if selections["state"] == ["All"] or selections["state"] == []:
         out = out
 
     else:
-       out = out[out["STATE"].isin(selections["STATE"])]
+       out = out[out["state_list"].isin(selections["state"])]
 
     #lo, hi = selections["dosage"]
     #out = out[(out["VAX_DOSE_SERIES"] >= lo) & (out["VAX_DOSE_SERIES"] <= hi)]
