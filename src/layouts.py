@@ -1,5 +1,11 @@
 import pandas as pd
 import streamlit as st
+from src.charts import (plot_reports_overtime_bar,
+                        plot_reports_overtime_line,
+                        plot_patient_ages,
+                        plot_num_reports_loc,
+                        plot_num_reports_sex,
+                        plot_most_common_symptoms)
 
 def header_metrics() -> None:
     #def header_metrics(df: pd.DataFrame) <--- update this when dataframe is ready
@@ -41,7 +47,7 @@ def header_metrics() -> None:
 # Source: https://docs.streamlit.io/develop/api-reference/text/st.markdown
 
 
-def body_layout_tabs() -> None:
+def body_layout_tabs(df) -> None:
     # body_layout_tabs(df: pd.DataFrame) <--- update this when dataframe is ready
     """Tabs layout with 3 default tabs."""
     t1, t2, t3 = st.tabs(["Events Over Time","Adverse Events", "Most Common Symptoms"])
@@ -52,7 +58,7 @@ def body_layout_tabs() -> None:
         horizontal=True,
         )
         if tab_choice == "Bar":
-            # plot_reports_overtime_bar(df) #<-chart function here
+            plot_reports_overtime_bar(df) #<-chart function here
             st.info("Bar graph.")
         elif tab_choice == "Line":
             # plot_reports_overtime_line(df) #<-chart function here
