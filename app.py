@@ -57,7 +57,7 @@ def main() -> None:
     # Main body
     # -------------------------
     st.subheader("Visualizations", divider="grey")
-    body_layout_tabs()
+    body_layout_tabs(df)
 
     # -------------------------
     # Alt. Main body from Lab06; look at table with a specific visual
