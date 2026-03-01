@@ -1,4 +1,4 @@
-#  generalized class example (troubleshooting data.py with AJ)
+#  generalized class example (troubleshooting data_draft1.py with AJ)
 class Dog:
     def __init__(self, dog_age, dog_name, dog_breed):
         self.age = dog_age

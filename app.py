@@ -1,14 +1,7 @@
 import streamlit as st
 
 ## Grabs functions & scripts from other .py's
-from src.data import (download_datasets,
-                      load_vaers,
-                      load_vax,
-                      load_symptoms,
-                      clean_vaers,
-                      clean_vax,
-                      clean_symptoms,
-                      merge_dfs)
+from src.data import load_data
 from src.layouts import header_metrics, body_layout_tabs
 from src.filters import render_filters, apply_filters
 
@@ -25,15 +18,8 @@ def main() -> None:
     st.caption("An interactive data visualization dashboard for adverse vaccine events and reactions.",text_alignment="left")
     # -------------------------
 
-    ## Load + Clean Cached Data
-    path = download_datasets()
-    df_VAERS = load_vaers(path)
-    df_vax = load_vax(path)
-    df_symptoms = load_symptoms(path)
-    df_vaers_cl = clean_vaers(df_VAERS)
-    df_vax_cl = clean_vax(df_vax)
-    df_symptoms_cl = clean_symptoms(df_symptoms)
-    df = merge_dfs(df_symptoms_cl, df_vaers_cl, df_vax_cl)
+    ## Load Cached Data
+    df = load_data()
 
     # sanity check
     st.write("Row count: ", len(df))
