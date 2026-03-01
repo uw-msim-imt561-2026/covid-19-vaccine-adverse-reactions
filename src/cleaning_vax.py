@@ -11,7 +11,7 @@ def handle_whitespace_vax(df: pd.DataFrame) -> pd.DataFrame:
     for col in df.columns:
         if df[col].dtype == 'str':
             df[col] = df[col].str.strip()
-    single_word_cols_vax = list(df_vax[['VAX_TYPE', 'VAX_MANU', 'VAX_LOT', 'VAX_DOSE_SERIES', 'VAX_ROUTE', 'VAX_SITE']])
+    single_word_cols_vax = list(df[['VAX_TYPE', 'VAX_MANU', 'VAX_LOT', 'VAX_DOSE_SERIES', 'VAX_ROUTE', 'VAX_SITE']])
     for col in single_word_cols_vax:
         if df[col].dtype == 'str':
             df[col] = df[col].str.replace(" ", "")
