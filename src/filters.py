@@ -17,9 +17,9 @@ def render_filters(df: pd.DataFrame) -> dict:
     min_rt, max_rt = float(df["VAX_DOSE_SERIES"].min()), float(df["VAX_DOSE_SERIES"].max())
     dosage = st.sidebar.slider(
         "Dosage Series",
-        min_value=0.0,
+        min_value=1.0,
         max_value=float(max_rt),
-        value=(0.0, float(min(30.0, max_rt))),
+        value=(1.0, float(min(30.0, max_rt))),
         step=1.0,
     )
 
@@ -34,9 +34,9 @@ def render_filters(df: pd.DataFrame) -> dict:
     min_at, max_at = float(df["AGE_YRS"].min()), float(df["AGE_YRS"].max())
     age = st.sidebar.slider(
         "Age",
-        min_value=0.0,
+        min_value=float(min_at),
         max_value=float(max_at),
-        value=(0.0, float(min(110.0, max_at))),
+        value=(float(min_at), float(min(110.0, max_at))),
         step=1.0,
     )
 
