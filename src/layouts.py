@@ -8,7 +8,10 @@ from src.charts import (plot_reports_overtime_bar,
                         plot_most_common_symptoms)
 from src.data import (get_total_events_kpi,
                       get_total_hosp_kpi,
-                      get_total_died_kpi)
+                      get_total_died_kpi,
+                      get_percent_change_total,
+                      get_percent_change_hosp,
+                      get_percent_change_died)
 
 def header_metrics(df: pd.DataFrame) -> None:
     #def header_metrics(df: pd.DataFrame) <--- update this when dataframe is ready
@@ -19,38 +22,42 @@ def header_metrics(df: pd.DataFrame) -> None:
     total_events = get_total_events_kpi(df)
     total_hosp = get_total_hosp_kpi(df)
     total_died = get_total_died_kpi(df)
+    pct_change_total = get_percent_change_total(df)
+    pct_change_hosp = get_percent_change_hosp(df)
+    pct_change_died = get_percent_change_died(df)
 
-    temporary_c4 = 0 # 0, increase; 1, decrease; 3, neither REPLACE THIS EVENTUALLY WITH ACTUAL LOGIC
     temporary_c5 = 1  # 0, increase; 1, decrease; 3, neither REPLACE THIS EVENTUALLY WITH ACTUAL LOGIC
     temporary_c6 = 2  # 0, increase; 1, decrease; 3, neither REPLACE THIS EVENTUALLY WITH ACTUAL LOGIC
 
     with c1:
         st.metric("Total adverse events  \nover Date Range",total_events)
         # This section just demonstrates how we can do preattentive attributes using markdowns.
-        if temporary_c4 == 0:
-            st.markdown(f''':red-background[:red[↑{100}%]]''')
-        elif temporary_c4 == 1:
-            st.markdown(f''':green-background[:green[↓{50}%]]''')
-        elif temporary_c4 == 2:
-            st.markdown(f''':yellow-background[:yellow[N/A]]''')
+        # if percent change is increasing (greater than 0), code red
+        if pct_change_total >= 0:
+            st.markdown(f''':red-background[:red[↑{pct_change_total}%]]''')
+        # if percent change is decreasing (less than 0), code green
+        elif pct_change_total < 0:
+            st.markdown(f''':green-background[:green[↓{pct_change_total}%]]''')
+        elif pct_change_total == '0 events reported in first month of date range':
+            st.markdown(f''':yellow-background[:yellow[No events reported in first month of date range.]]''')
     with c2:
         st.metric("Total hospitalizations  \nover Date Range",total_hosp)
         # This section just demonstrates how we can do preattentive attributes using markdowns.
-        if temporary_c5 == 0:
-            st.markdown(f''':red-background[:red[↑{100}%]]''')
-        elif temporary_c5 == 1:
-            st.markdown(f''':green-background[:green[↓{50}%]]''')
-        elif temporary_c5 == 2:
-            st.markdown(f''':yellow-background[:yellow[N/A]]''')
+        if pct_change_hosp >= 0:
+            st.markdown(f''':red-background[:red[↑{pct_change_hosp}%]]''')
+        elif pct_change_hosp < 0:
+            st.markdown(f''':green-background[:green[↓{pct_change_hosp}%]]''')
+        elif pct_change_hosp == '0 events reported in first month of date range':
+            st.markdown(f''':yellow-background[:yellow[0 hospitalizations reported in first month of date range]]''')
     with c3:
         st.metric("Total deaths  \nover Date Range",total_died)
         # This section just demonstrates how we can do preattentive attributes using markdowns.
-        if temporary_c6 == 0:
-            st.markdown(f''':red-background[:red[↑{100}%]]''')
-        elif temporary_c6 == 1:
-            st.markdown(f''':green-background[:green[↓{50}%]]''')
-        elif temporary_c6 == 2:
-            st.markdown(f''':yellow-background[:yellow[N/A]]''')
+        if pct_change_died >= 0:
+            st.markdown(f''':red-background[:red[↑{pct_change_died}%]]''')
+        elif pct_change_died < 0:
+            st.markdown(f''':green-background[:green[↓{pct_change_died}%]]''')
+        elif pct_change_died == '0 events reported in first month of date range':
+            st.markdown(f''':yellow-background[:yellow[0 events reported in first month of date range]]''')
 
 # Source: https://docs.streamlit.io/develop/api-reference/text/st.markdown
 

@@ -43,3 +43,38 @@ def get_total_died_kpi(df: pd.DataFrame) -> str:
     total_died_str = str(total_died)
     return total_died_str
 
+def get_percent_change_total(df: pd.DataFrame) -> float:
+    df_kpi_grouped = (df.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
+    first_month = df_kpi_grouped.at[0,'report_count']
+    last_month = df_kpi_grouped.at[(len(df_kpi_grouped)-1), 'report_count']
+    if first_month == 0:
+        pct_change = '0 events reported in first month of date range.'
+    else:
+        pct_change = ((last_month - first_month) / abs(first_month))*100
+        pct_change = round(pct_change, 2)
+    return pct_change
+
+def get_percent_change_hosp(df: pd.DataFrame) -> float:
+    df_hosp = df[df['HOSPITAL'] == 'Y']
+    df_kpi_hosp = (df_hosp.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
+    first_month = df_kpi_hosp.at[0,'report_count']
+    last_month = df_kpi_hosp.at[(len(df_kpi_hosp)-1), 'report_count']
+    if first_month == 0:
+        pct_change = '0 events reported in first month of date range.'
+    else:
+        pct_change = ((last_month - first_month) / abs(first_month))*100
+        pct_change = round(pct_change, 2)
+    return pct_change
+
+def get_percent_change_died(df: pd.DataFrame) -> float:
+    df_died = df[df['DIED'] == 'Y']
+    df_kpi_died = (df_died.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
+    first_month = df_kpi_died.at[0,'report_count']
+    last_month = df_kpi_died.at[(len(df_kpi_died)-1), 'report_count']
+    if first_month == 0:
+        pct_change = '0 events reported in first month of date range.'
+    else:
+        pct_change = ((last_month - first_month) / abs(first_month))*100
+        pct_change = round(pct_change, 2)
+    return pct_change
+
