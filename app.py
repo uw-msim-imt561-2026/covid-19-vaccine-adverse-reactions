@@ -14,16 +14,16 @@ def main() -> None:
     # -------------------------
     ## Header (sidebar by default)
     #st.title("COVID-19 VAERS Dashboard") <- replaced with st.image
-    st.image("visualizations/logos/Header_VAERS.png",width='content',clamp=True) # prolly want to convert this to an .svg at some point
-    st.caption("An interactive data visualization dashboard for adverse vaccine events and reactions.",text_alignment="left")
+    st.image("visualizations/logos/VAERS_Header.png",width='content',clamp=True)
+    #st.caption(".",text_alignment="left")
     # -------------------------
 
     ## Load Cached Data
     df = load_data()
 
     # sanity check
-    st.write("Row count: ", len(df))
-    st.dataframe(df.head(5))
+    #st.write("Row count: ", len(df))
+    #st.dataframe(df.head(5))
 
     # -------------------------
     ## Filters (sidebar by default)
@@ -38,6 +38,8 @@ def main() -> None:
     ## KPIS
     st.subheader("Key Insights",divider="grey")
     header_metrics()
+    st.caption("*NOTE: Key Insight metrics update based on the selected Date of Report range,"
+               " all percent changes reflect how these values shift over time.", text_alignment="left")
 
     # -------------------------
     # Main body

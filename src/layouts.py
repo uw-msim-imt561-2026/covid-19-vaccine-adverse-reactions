@@ -17,7 +17,7 @@ def header_metrics() -> None:
     temporary_c6 = 2  # 0, increase; 1, decrease; 3, neither REPLACE THIS EVENTUALLY WITH ACTUAL LOGIC
 
     with c1:
-        st.metric("Total adverse events  \nin current month",1)
+        st.metric("Total adverse events  \nover Date Range",1)
         # This section just demonstrates how we can do preattentive attributes using markdowns.
         if temporary_c4 == 0:
             st.markdown(f''':red-background[:red[↑{100}%]]''')
@@ -49,7 +49,7 @@ def header_metrics() -> None:
 def body_layout_tabs(df) -> None:
     # body_layout_tabs(df: pd.DataFrame) <--- update this when dataframe is ready
     """Tabs layout with 3 default tabs."""
-    t1, t2, t3 = st.tabs(["Events Over Time","Adverse Events", "Most Common Symptoms"])
+    t1, t2, t3, t4 = st.tabs(["Events Over Time","Adverse Events", "Most Common Symptoms", "Table View"])
     with t1:
         st.subheader("Events Over Time")
         tab_choice = st.radio(''':grey[Study the frequency of adverse reaction events reported over time.]''',
@@ -74,14 +74,15 @@ def body_layout_tabs(df) -> None:
         st.info("Note: As per CDC Guideline, COVID‑19 illness may appear in VAERS reports when "
                 "it occurs after vaccination; this reflects the system’s design to collect all "
                 "post‑vaccination events for signal detection.")
-
+    with t4:
         # If we want people to download our data, we'd use this guy in some way.
-        #st.download_button(
-            #label="Download CSV",
-            #data=df.to_csv(index=False),
-            #file_name="sample.csv",
-            #mime="text/csv",
-            #icon=":material/download:",
-        #)
+        st.dataframe(data=df)
+        st.download_button(
+            label="Download CSV",
+            data=df.to_csv(index=False),
+            file_name="west_states_filtered.csv",
+            mime="text/csv",
+            icon=":material/download:",
+        )
         ## Source: https://docs.streamlit.io/develop/api-reference/widgets/st.download_button
         ## Source: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
