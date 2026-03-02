@@ -15,7 +15,7 @@ def main() -> None:
     ## Header (sidebar by default)
     #st.title("COVID-19 VAERS Dashboard") <- replaced with st.image
     st.image("visualizations/logos/VAERS_Header.png",width='content',clamp=True)
-    st.caption(".",text_alignment="left")
+    #st.caption(".",text_alignment="left")
     # -------------------------
 
     ## Load Cached Data
