@@ -15,7 +15,7 @@ streamlit run app.py
 
 ## PROJECT CONTEXT AND INTENDED USE
 
-This is a student-led data visualization project developed for the UW Master of Information Management program. The primary project goal was for our team to practice building a streamlined dashboard for a specific stakeholder audience. This dashboard and any insights gleaned from it should not be taken as authoritative conclusions on the impacts of COVID-19 vaccines or their side-effects. (See “Ethical Concerns” for further detail.)
+This is a student-led data visualization project developed for the UW Master of Information Management program. The primary project goal was for our team to practice building a Streamlit-based dashboard for a specific stakeholder audience. This dashboard and any insights gleaned from it should not be taken as authoritative conclusions on the impacts of COVID-19 vaccines or their side-effects. (See “Ethical Concerns” for further detail.)
 
 ## DATASET DETAILS
 
