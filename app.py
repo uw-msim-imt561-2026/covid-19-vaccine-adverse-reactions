@@ -37,7 +37,7 @@ def main() -> None:
     # -------------------------
     ## KPIS
     st.subheader("Key Insights",divider="grey")
-    header_metrics()
+    header_metrics(df_f)
     st.caption("*NOTE: Key Insight metrics update based on the selected Date of Report range,"
                " all percent changes reflect how these values shift over time.", text_alignment="left")
 
