@@ -64,7 +64,7 @@ The COVID-19 VAERS dataset was last updated in 2024 (Garg, Kaggle, 2026), repres
 That said, any data sourced from the U.S. federal government should be considered with some skepticism. The current presidential administration has shown an eagerness to remove leadership from federal agencies publishing data that does not meet with executive approval. See: the firing of Erika McEntarfer from the Bureau of Labor Statistics in summer 2025 (Rugaber, Boston Globe, 2025). Given the anti-vaccine stance of the current head of the CDC (Merlan, Mother Jones, 2025), the current VAERS dataset should be approached with caution.
 
 # REFERENCES
-(see also “References” directory for PDF copies of the news articles cited below)
+(see also “references” directory)
 
 - Brumfiel, G. (June 14, 2021). *Anti-Vaccine Activists Use A Federal Database To Spread Fear About COVID Vaccines.* NPR.
 https://www.npr.org/sections/health-shots/2021/06/14/1004757554/anti-vaccine-activists-use-a-federal-database-to-spread-fear-about-covid-vaccine.
