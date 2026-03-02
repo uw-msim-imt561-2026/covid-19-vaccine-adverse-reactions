@@ -9,8 +9,8 @@ streamlit run app.py
 ```
 
 ## Submission
-- **Streamlit deployed link:** asdf.
-- **GitHub repo link:** asdf.
+- **Streamlit deployed link:** https://a9hkgrtvqdwsrpky48zxpk.streamlit.app/
+- **GitHub repo link:** https://github.com/uw-msim-imt561-2026/covid-19-vaccine-adverse-reactions
 - **Description:** asdf.
 
 # app.py (global)
