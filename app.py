@@ -15,7 +15,11 @@ def main() -> None:
     ## Header (sidebar by default)
     #st.title("COVID-19 VAERS Dashboard") <- replaced with st.image
     st.image("visualizations/logos/VAERS_Header.png",width='content',clamp=True)
-    #st.caption(".",text_alignment="left")
+    st.markdown("#### Peer Review Info: "
+                "\n- **Dataset:** COVID-19 World Vaccine Adverse Reactions: (https://www.kaggle.com/datasets/ayushggarg/covid19-vaccine-adverse-reactions/data) "
+                "\n - **Repo Name:** covid-19-vaccine-adverse-reactions "
+                "\n - See repo for ReadMe and project details.")
+
     # -------------------------
 
     ## Load Cached Data
