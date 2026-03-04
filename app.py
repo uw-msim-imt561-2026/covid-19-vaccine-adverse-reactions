@@ -20,7 +20,7 @@ def main() -> None:
                 "\n - **Repo Name:** covid-19-vaccine-adverse-reactions "
                 "\n - See repo for ReadMe and project details."
                 "\n - **IMPORTANT: Please use only one filter at a time and wait for the app to finish loading before making any changes. "
-                "Using multiple filters at once or adjusting settings while it’s still loading can cause the app to crash for everyone who uses it.**")
+                "Using multiple filters at once or adjusting them while it’s still loading can cause the app to crash for everyone who uses it.**")
 
     # -------------------------
 
