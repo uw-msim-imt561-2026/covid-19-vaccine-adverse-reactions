@@ -18,7 +18,9 @@ def main() -> None:
     st.markdown("#### Peer Review Info: "
                 "\n- **Dataset:** COVID-19 World Vaccine Adverse Reactions: (https://www.kaggle.com/datasets/ayushggarg/covid19-vaccine-adverse-reactions/data) "
                 "\n - **Repo Name:** covid-19-vaccine-adverse-reactions "
-                "\n - See repo for ReadMe and project details.")
+                "\n - See repo for ReadMe and project details."
+                "\n - **IMPORTANT: Please use only one filter at a time and wait for the app to finish loading before making any changes. "
+                "Using multiple filters at once or adjusting settings while it’s still loading can cause the app to crash for everyone who uses it.**")
 
     # -------------------------
 
