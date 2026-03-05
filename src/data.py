@@ -5,18 +5,15 @@ import streamlit as st
 ## Required cache decorator - needed for streamlit to function
 @st.cache_data(show_spinner=False)
 def load_data() -> pd.DataFrame:
-    df = pd.read_csv('data/west_states_filtered.csv')
-    df['RECVDATE'] = df['RECVDATE'].astype('datetime64[ns]')
-    df['VAX_DATE'] = df['VAX_DATE'].astype('datetime64[ns]')
+    df = pd.read_csv('data/west_states_filtered_v2.csv')
     df['ONSET_DATE'] = df['ONSET_DATE'].astype('datetime64[ns]')
     df['TODAYS_DATE'] = df['TODAYS_DATE'].astype('datetime64[ns]')
-    df['RPT_DATE'] = df['RPT_DATE'].astype('datetime64[ns]')
     df['SEX'] = df['SEX'].replace('F', 'Female')
     df['SEX'] = df['SEX'].replace('M', 'Male')
     df['SEX'] = df['SEX'].replace('U', 'Unknown or Undisclosed')
     df['ONSET_YEAR'] = df['ONSET_DATE'].dt.year
     df['MONTH_YEAR'] = df['ONSET_DATE'].dt.strftime('%Y-%m')
-    df = df.drop('Unnamed: 0', axis=1)
+    #df = df.drop('Unnamed: 0', axis=1)
     return df
 
 ## Calculate KPI metrics

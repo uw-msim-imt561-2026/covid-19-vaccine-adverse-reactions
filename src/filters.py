@@ -47,9 +47,9 @@ def render_filters(df: pd.DataFrame) -> dict:
     st.sidebar.subheader("", divider="grey")
     # Report Date slider
     #min_dt, max_dt = 0, 24  # get rid of this when df is ready
-    min_dt, max_dt = df["RECVDATE"].min().to_pydatetime(), df["RECVDATE"].max().to_pydatetime()
+    min_dt, max_dt = df["ONSET_DATE"].min().to_pydatetime(), df["ONSET_DATE"].max().to_pydatetime()
     report_date = st.sidebar.slider(
-        "Date of Report",
+        "Date of Symptom Onset",
         min_value=min_dt,
         max_value=max_dt,
         value=(min_dt, max_dt),
@@ -94,6 +94,6 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     out = out[(out["AGE_YRS"] >= lo) & (out["AGE_YRS"] <= hi)]
 
     lo, hi = selections["report_date"]
-    out = out[(out["RECVDATE"] >= lo) & (out["RECVDATE"] <= hi)]
+    out = out[(out["ONSET_DATE"] >= lo) & (out["ONSET_DATE"] <= hi)]
 
     return out.reset_index(drop=True)
