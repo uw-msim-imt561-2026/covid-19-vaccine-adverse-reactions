@@ -66,7 +66,7 @@ def get_percent_change_hosp(df: pd.DataFrame) -> float:
 def get_percent_change_died(df: pd.DataFrame) -> float:
     df_died = df[df['DIED'] == 'Y']
     df_kpi_died = (df_died.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
-    first_month = df_kpi_died.at[0,'report_count']
+    first_month = df_kpi_died.at[0,'report_count'] #this guy
     last_month = df_kpi_died.at[(len(df_kpi_died)-1), 'report_count']
     if first_month == 0:
         pct_change = '0 events reported in first month of date range.'
