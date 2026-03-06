@@ -31,34 +31,36 @@ def header_metrics(df: pd.DataFrame) -> None:
 
     with c1:
         st.metric("Total adverse events  \nover Date Range",total_events)
-        # This section just demonstrates how we can do preattentive attributes using markdowns.
-        # if percent change is increasing (greater than 0), code red
-        if pct_change_total >= 0:
-            st.markdown(f''':red-background[:red[↑{pct_change_total}%]]''')
-        # if percent change is decreasing (less than 0), code green
-        elif pct_change_total < 0:
-            st.markdown(f''':green-background[:green[↓{pct_change_total}%]]''')
-        elif pct_change_total == '0 events reported in first month of date range':
-            st.markdown(f''':yellow-background[:yellow[No events reported in first month of date range.]]''')
+        if isinstance(pct_change_total, str):
+            st.markdown(f''':yellow-background[:yellow[NaN]]''')
+        else:
+            if pct_change_total >= 0:
+                st.markdown(f''':red-background[:red[↑{pct_change_total}%]]''')
+            else:
+                pct_change_total = pct_change_total * -1
+                st.markdown(f''':green-background[:green[↓{pct_change_total}%]]''')
     with c2:
         st.metric("Total hospitalizations  \nover Date Range",total_hosp)
-        # This section just demonstrates how we can do preattentive attributes using markdowns.
-        if pct_change_hosp >= 0:
-            st.markdown(f''':red-background[:red[↑{pct_change_hosp}%]]''')
-        elif pct_change_hosp < 0:
-            st.markdown(f''':green-background[:green[↓{pct_change_hosp}%]]''')
-        elif pct_change_hosp == '0 events reported in first month of date range':
-            st.markdown(f''':yellow-background[:yellow[0 hospitalizations reported in first month of date range]]''')
+        if isinstance(pct_change_hosp, str):
+            st.markdown(f''':yellow-background[:yellow[NaN]]''')
+        else:
+            if pct_change_hosp >= 0:
+                st.markdown(f''':red-background[:red[↑{pct_change_hosp}%]]''')
+            else:
+                pct_change_hosp = pct_change_hosp * -1
+                st.markdown(f''':green-background[:green[↓{pct_change_hosp}%]]''')
     with c3:
         st.metric("Total deaths  \nover Date Range",total_died)
-        # This section just demonstrates how we can do preattentive attributes using markdowns.
-        if pct_change_died >= 0:
-            st.markdown(f''':red-background[:red[↑{pct_change_died}%]]''')
-        elif pct_change_died < 0:
-            st.markdown(f''':green-background[:green[↓{pct_change_died}%]]''')
-        elif pct_change_died == '0 events reported in first month of date range':
-            st.markdown(f''':yellow-background[:yellow[0 events reported in first month of date range]]''')
+        if isinstance(pct_change_died, str):
+            st.markdown(f''':yellow-background[:yellow[NaN]]''')
+        else:
+            if pct_change_died >= 0:
+                st.markdown(f''':red-background[:red[↑{pct_change_died}%]]''')
+            else:
+                pct_change_died = pct_change_died * -1
+                st.markdown(f''':green-background[:green[↓{pct_change_died}%]]''')
 
+# Source:
 # Source: https://docs.streamlit.io/develop/api-reference/text/st.markdown
 
 def body_layout_tabs(df) -> None:
