@@ -62,7 +62,6 @@ def header_metrics(df: pd.DataFrame) -> None:
                 pct_change_died = pct_change_died * -1
                 st.markdown(f''':green-background[:green[↓{pct_change_died}%]]''')
 
-# Source:
 # Source: https://docs.streamlit.io/develop/api-reference/text/st.markdown
 
 def body_layout_tabs(df) -> None:
