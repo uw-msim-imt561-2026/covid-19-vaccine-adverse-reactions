@@ -26,11 +26,13 @@ def header_metrics(df: pd.DataFrame) -> None:
     pct_change_hosp = get_percent_change_hosp(df)
     pct_change_died = get_percent_change_died(df)
 
-    temporary_c5 = 1  # 0, increase; 1, decrease; 3, neither REPLACE THIS EVENTUALLY WITH ACTUAL LOGIC
-    temporary_c6 = 2  # 0, increase; 1, decrease; 3, neither REPLACE THIS EVENTUALLY WITH ACTUAL LOGIC
+    # metric help messages
+    m1_help = "Total number of adverse events reported in the selected onset‑date range. Percent change compares this total to the previous set period."
+    m2_help = "Total hospitalizations linked to adverse events in the selected onset‑date range. Percent change shows how this count shifted from the prior set period."
+    m3_help = "Total deaths associated with adverse events in the selected onset‑date range. Percent change reflects the difference from the previous set period."
 
     with c1:
-        st.metric("Total adverse events  \nover Date Range",total_events)
+        st.metric("Total adverse events  \nover time",total_events,help=m1_help)
         if isinstance(pct_change_total, str):
             st.markdown(f''':yellow-background[:yellow[NaN]]''')
         else:
@@ -40,7 +42,7 @@ def header_metrics(df: pd.DataFrame) -> None:
                 pct_change_total = pct_change_total * -1
                 st.markdown(f''':green-background[:green[↓{pct_change_total}%]]''')
     with c2:
-        st.metric("Total hospitalizations  \nover Date Range",total_hosp)
+        st.metric("Total hospitalizations  \nover time",total_hosp,help=m2_help)
         if isinstance(pct_change_hosp, str):
             st.markdown(f''':yellow-background[:yellow[NaN]]''')
         else:
@@ -50,7 +52,7 @@ def header_metrics(df: pd.DataFrame) -> None:
                 pct_change_hosp = pct_change_hosp * -1
                 st.markdown(f''':green-background[:green[↓{pct_change_hosp}%]]''')
     with c3:
-        st.metric("Total deaths  \nover Date Range",total_died)
+        st.metric("Total deaths  \nover time",total_died,help=m3_help)
         if isinstance(pct_change_died, str):
             st.markdown(f''':yellow-background[:yellow[NaN]]''')
         else:
@@ -97,7 +99,7 @@ def body_layout_tabs(df) -> None:
         st.download_button(
             label="Download CSV",
             data=df.to_csv(index=False),
-            file_name="west_states_filtered.csv",
+            file_name="west_states_filtered_v2.csv",
             mime="text/csv",
             icon=":material/download:",
         )
