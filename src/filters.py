@@ -41,7 +41,7 @@ def render_filters(df: pd.DataFrame) -> dict:
     )
 
     # State Location
-    state_list = ["All"] + sorted(df["STATE"].unique().tolist())
+    state_list = sorted(df["STATE"].unique().tolist())
     state = st.sidebar.multiselect("State", state_list, default=state_list)
 
     st.sidebar.subheader("", divider="grey")
@@ -75,18 +75,21 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     """Applying filter selections to the dataframe."""
 
     out = df.copy()
-
+    # Vaccine Manufacturer
     if selections["vax"] != "All":
         out = out[out["VAX_MANU"] == selections["vax"]]
 
+    # Sex
     if selections["sex"] != "All":
         out = out[out["SEX"] == selections["sex"]]
 
-    if selections["state"] == ["All"] or selections["state"] == []:
-        out = out
+    # State Multiselect
+    if not selections["state"]:
+        out = out[out["STATE"] != out["STATE"]]
     else:
         out = out[out["STATE"].isin(selections["state"])]
 
+    # All the sliders
     lo, hi = selections["dosage"]
     out = out[(out["VAX_DOSE_SERIES"] >= lo) & (out["VAX_DOSE_SERIES"] <= hi)]
 
