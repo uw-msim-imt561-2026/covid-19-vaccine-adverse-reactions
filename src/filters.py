@@ -41,15 +41,15 @@ def render_filters(df: pd.DataFrame) -> dict:
     )
 
     # State Location
-    state_list = ["All"] + sorted(df["STATE"].unique().tolist())
+    state_list = sorted(df["STATE"].unique().tolist())
     state = st.sidebar.multiselect("State", state_list, default=state_list)
 
     st.sidebar.subheader("", divider="grey")
     # Report Date slider
     #min_dt, max_dt = 0, 24  # get rid of this when df is ready
-    min_dt, max_dt = df["RECVDATE"].min().to_pydatetime(), df["RECVDATE"].max().to_pydatetime()
+    min_dt, max_dt = df["ONSET_DATE"].min().to_pydatetime(), df["ONSET_DATE"].max().to_pydatetime()
     report_date = st.sidebar.slider(
-        "Date of Report",
+        "Date of Symptom Onset",
         min_value=min_dt,
         max_value=max_dt,
         value=(min_dt, max_dt),
@@ -75,18 +75,21 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     """Applying filter selections to the dataframe."""
 
     out = df.copy()
-
+    # Vaccine Manufacturer
     if selections["vax"] != "All":
         out = out[out["VAX_MANU"] == selections["vax"]]
 
+    # Sex
     if selections["sex"] != "All":
         out = out[out["SEX"] == selections["sex"]]
 
-    if selections["state"] == ["All"] or selections["state"] == []:
-        out = out
+    # State Multiselect
+    if not selections["state"]:
+        out = out[out["STATE"] != out["STATE"]]
     else:
         out = out[out["STATE"].isin(selections["state"])]
 
+    # All the sliders
     lo, hi = selections["dosage"]
     out = out[(out["VAX_DOSE_SERIES"] >= lo) & (out["VAX_DOSE_SERIES"] <= hi)]
 
@@ -94,6 +97,6 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     out = out[(out["AGE_YRS"] >= lo) & (out["AGE_YRS"] <= hi)]
 
     lo, hi = selections["report_date"]
-    out = out[(out["RECVDATE"] >= lo) & (out["RECVDATE"] <= hi)]
+    out = out[(out["ONSET_DATE"] >= lo) & (out["ONSET_DATE"] <= hi)]
 
     return out.reset_index(drop=True)

@@ -13,14 +13,15 @@ def main() -> None:
 
     # -------------------------
     ## Header (sidebar by default)
-    #st.title("COVID-19 VAERS Dashboard") <- replaced with st.image
+    # Header/Title
     st.image("visualizations/logos/VAERS_Header.png",width='content',clamp=True)
-    st.markdown("#### Peer Review Info: "
-                "\n- **Dataset:** COVID-19 World Vaccine Adverse Reactions: (https://www.kaggle.com/datasets/ayushggarg/covid19-vaccine-adverse-reactions/data) "
-                "\n - **Repo Name:** covid-19-vaccine-adverse-reactions "
-                "\n - See repo for ReadMe and project details."
-                "\n - **IMPORTANT: Please use only one filter at a time and wait for the app to finish loading before making any changes. "
-                "Using multiple filters at once or adjusting them while it’s still loading can cause the app to crash for everyone who uses it.**")
+    # HTML/CSS caption that fills space between two strings.
+    st.markdown(
+        """<div style="display:flex; justify-content:space-between; width:100%">
+            <span style="color:gray;">Interactive dashboard for adverse events and reactions.</span>
+            <span style="color:gray;">Version 1.1.</span> </div>""",
+        unsafe_allow_html=True
+    )
 
     # -------------------------
 
@@ -44,8 +45,8 @@ def main() -> None:
     ## KPIS
     st.subheader("Key Insights",divider="grey")
     header_metrics(df_f)
-    st.caption("*NOTE: Key Insight metrics update based on the selected Date of Report range,"
-               " all percent changes reflect how these values shift over time.", text_alignment="left")
+    st.caption("*NOTE: Key Insight metrics update based on the selected Date of Symptom Onset range,"
+               " all percent changes reflect how these set values shift over time.", text_alignment="left")
 
     # -------------------------
     # Main body
