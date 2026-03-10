@@ -2,6 +2,9 @@ import pandas as pd
 import streamlit as st
 from src.charts import (plot_reports_overtime_bar,
                         plot_reports_overtime_line,
+                        plot_reports_overtime_line_state,
+                        plot_reports_overtime_line_sex,
+                        plot_reports_overtime_line_vax,
                         plot_patient_ages,
                         plot_num_reports_loc,
                         plot_num_reports_sex,
@@ -67,24 +70,31 @@ def header_metrics(df: pd.DataFrame) -> None:
 def body_layout_tabs(df) -> None:
     # body_layout_tabs(df: pd.DataFrame) <--- update this when dataframe is ready
     """Tabs layout with 3 default tabs."""
-    t1, t2, t3, t4 = st.tabs(["Events Over Time","Adverse Events", "Most Common Symptoms", "Table View"])
+    t1, t2, t3, t4 = st.tabs(["Events Over Time","Adverse Events Demographics", "Most Common Symptoms", "Table View"])
     with t1:
         st.subheader("Events Over Time")
         tab_choice = st.radio(''':grey[Study the frequency of adverse reaction events reported over time.]''',
-        ["Bar", "Line"],
+        ["Overall", "State","Sex","Vaccine Type"],
         horizontal=True,
         )
-        if tab_choice == "Bar":
-            plot_reports_overtime_bar(df) #<-chart function here
-        elif tab_choice == "Line":
+        #if tab_choice == "Bar":
+            #plot_reports_overtime_bar(df) #<-chart function here
+        if tab_choice == "Overall":
             plot_reports_overtime_line(df) #<-chart function here
+        elif tab_choice == "State":
+            plot_reports_overtime_line_state(df)  # <-chart function here
+        elif tab_choice == "Sex":
+            plot_reports_overtime_line_sex(df)  # <-chart function here
+        elif tab_choice == "Vaccine Type":
+            plot_reports_overtime_line_vax(df)  # <-chart function here
 
     with t2:
-        st.subheader("Adverse Events")
+        st.subheader("Adverse Events Demographics")
         st.caption("Look into the frequency of adverse events across specific demographics.")
         plot_patient_ages(df) #<-chart function here
         plot_num_reports_sex(df) #<-chart function here
         plot_num_reports_loc(df) #<-chart function here
+
     with t3:
         st.subheader("Most Common Symptoms")
         st.caption("Keep track of the most common symptoms reported with an adverse event.")
@@ -92,6 +102,7 @@ def body_layout_tabs(df) -> None:
         st.info("Note: As per CDC Guideline, COVID‑19 illness may appear in VAERS reports when "
                 "it occurs after vaccination; this reflects the system’s design to collect all "
                 "post‑vaccination events for signal detection.")
+
     with t4:
         # If we want people to download our data, we'd use this guy in some way.
         st.dataframe(data=df)
@@ -102,5 +113,6 @@ def body_layout_tabs(df) -> None:
             mime="text/csv",
             icon=":material/download:",
         )
+
         ## Source: https://docs.streamlit.io/develop/api-reference/widgets/st.download_button
         ## Source: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html

@@ -59,6 +59,85 @@ def plot_reports_overtime_line(df: pd.DataFrame):
     # streamlit plot command
     st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
 
+## Number VAERS Reports Over Time - LINEPLOT VERSION
+def plot_reports_overtime_line_state(df: pd.DataFrame):
+    """Plotting a line chart of the number of VAERS reports over time (per month)."""
+    if type(df['ONSET_DATE']) == str:
+        # sanity check to ensure datetime objects are present
+        df['ONSET_DATE'] = df['ONSET_DATE'].astype('datetime64[ns]')
+        # add Year, Month, and MonthYear columns
+        df['ONSET_YEAR'] = df['ONSET_DATE'].dt.year
+        df['ONSET_MONTHYEAR'] = df['ONSET_DATE'].dt.strftime('%Y-%m')
+
+    if df.empty:
+        st.info("No rows match your filters.")
+        return
+
+    # sort values + create groupby object
+    reports_overtime = df.sort_values(by='ONSET_DATE')
+    line_grouped = reports_overtime.groupby(by=["ONSET_MONTHYEAR","STATE"]).agg(report_count=("VAERS_ID", 'count'))
+    line_grouped = line_grouped.reset_index()
+
+    # line plot
+    labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events', 'STATE': 'State'}
+    fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels, color="STATE",
+                  title='Number of COVID-19 VAERS Reports Over Time (State)')
+
+    # streamlit plot command
+    st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
+
+def plot_reports_overtime_line_sex(df: pd.DataFrame):
+    """Plotting a line chart of the number of VAERS reports over time (per month)."""
+    if type(df['ONSET_DATE']) == str:
+        # sanity check to ensure datetime objects are present
+        df['ONSET_DATE'] = df['ONSET_DATE'].astype('datetime64[ns]')
+        # add Year, Month, and MonthYear columns
+        df['ONSET_YEAR'] = df['ONSET_DATE'].dt.year
+        df['ONSET_MONTHYEAR'] = df['ONSET_DATE'].dt.strftime('%Y-%m')
+
+    if df.empty:
+        st.info("No rows match your filters.")
+        return
+
+    # sort values + create groupby object
+    reports_overtime = df.sort_values(by='ONSET_DATE')
+    line_grouped = reports_overtime.groupby(by=["ONSET_MONTHYEAR","SEX"]).agg(report_count=("VAERS_ID", 'count'))
+    line_grouped = line_grouped.reset_index()
+
+    # line plot
+    labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events', 'SEX': 'Sex'}
+    fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels, color="SEX",
+                  title='Number of COVID-19 VAERS Reports Over Time (Sex)')
+
+    # streamlit plot command
+    st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
+
+def plot_reports_overtime_line_vax(df: pd.DataFrame):
+    """Plotting a line chart of the number of VAERS reports over time (per month)."""
+    if type(df['ONSET_DATE']) == str:
+        # sanity check to ensure datetime objects are present
+        df['ONSET_DATE'] = df['ONSET_DATE'].astype('datetime64[ns]')
+        # add Year, Month, and MonthYear columns
+        df['ONSET_YEAR'] = df['ONSET_DATE'].dt.year
+        df['ONSET_MONTHYEAR'] = df['ONSET_DATE'].dt.strftime('%Y-%m')
+
+    if df.empty:
+        st.info("No rows match your filters.")
+        return
+
+    # sort values + create groupby object
+    reports_overtime = df.sort_values(by='ONSET_DATE')
+    line_grouped = reports_overtime.groupby(by=["ONSET_MONTHYEAR","VAX_MANU"]).agg(report_count=("VAERS_ID", 'count'))
+    line_grouped = line_grouped.reset_index()
+
+    # line plot
+    labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events', 'VAX_MANU': 'Vaccine'}
+    fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels, color="VAX_MANU",
+                  title='Number of COVID-19 VAERS Reports Over Time (Vaccine Type)')
+
+    # streamlit plot command
+    st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
+
 ## Most Common Symptoms
 def plot_most_common_symptoms(df: pd.DataFrame):
     """Plotting a simple bar chart of the most common symptoms reported."""
@@ -77,6 +156,8 @@ def plot_most_common_symptoms(df: pd.DataFrame):
     labels = {'symptom': 'Symptom', 'count': 'Symptom Counts'}
     fig = px.bar(df_symptom_counts[0:10], x="count", y="symptom", labels=labels,
                  title='Most Commonly Reported COVID-19 VAERS Symptoms')
+
+    # Source: https://plotly.com/python/builtin-colorscales/
 
     # streamlit plot command
     st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
@@ -115,9 +196,10 @@ def plot_num_reports_sex(df: pd.DataFrame):
     labels = {'SEX': 'Patient Sex', 'report_count': 'Number of Adverse Events'}
     grouped_sex = df.groupby(by=['SEX']).agg(report_count=("VAERS_ID", 'count'))
     grouped_sex = grouped_sex.reset_index()
-    fig = px.bar(grouped_sex, x="SEX", y="report_count", labels=labels, title='Number of VAERS Reports by Patient Sex')
+    fig = px.bar(grouped_sex, x="SEX", y="report_count", labels=labels, title='Number of VAERS Reports by Patient Sex', color="SEX")
 
     # streamlit plot command
+    fig.update_layout(showlegend=False)
     st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
 
 ## Number of Reports by Patient Location
@@ -131,10 +213,11 @@ def plot_num_reports_loc(df: pd.DataFrame):
     grouped_state = df.groupby(by=['STATE']).agg(report_count=("VAERS_ID", 'count'))
     grouped_state = grouped_state.reset_index()
     grouped_state = grouped_state.sort_values(by='report_count', ascending=False)
-    fig = px.bar(grouped_state, x="STATE", y="report_count", labels=labels,
+    fig = px.bar(grouped_state, x="STATE", y="report_count", labels=labels, color="STATE",
                  title='Number of VAERS Reports by Patient Location')
 
     # streamlit plot command
+    fig.update_layout(showlegend=False)
     st.plotly_chart(fig, width='stretch')  # graph will be dynamically sized in layout
 
 
