@@ -99,9 +99,9 @@ def body_layout_tabs(df) -> None:
         st.subheader("Most Common Symptoms")
         st.caption("Keep track of the most common symptoms reported with an adverse event.")
         plot_most_common_symptoms(df) #<-chart function here
-        st.info("Note: As per CDC Guideline, COVID‑19 illness may appear in VAERS reports when "
-                "it occurs after vaccination; this reflects the system’s design to collect all "
-                "post‑vaccination events for signal detection.")
+        st.info("Note: VAERS is a self reported system. This means that anyone can submit any health event that"
+                " happens after vaccination, even when the event may not be caused by the vaccine. This includes"
+                " COVID-19 illness, unrelated medical issues, or entries such as \"no adverse event.\"")
 
     with t4:
         # If we want people to download our data, we'd use this guy in some way.

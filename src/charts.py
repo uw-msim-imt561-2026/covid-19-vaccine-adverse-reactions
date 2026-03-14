@@ -154,8 +154,8 @@ def plot_most_common_symptoms(df: pd.DataFrame):
 
     # plot bar chart
     labels = {'symptom': 'Symptom', 'count': 'Symptom Counts'}
-    fig = px.bar(df_symptom_counts[0:10], x="count", y="symptom", labels=labels,
-                 title='Most Commonly Reported COVID-19 VAERS Symptoms')
+    fig = px.bar(df_symptom_counts[0:10], x="count", y="symptom", labels=labels, color="count",
+                 color_continuous_scale="Oryel", title='Most Commonly Reported COVID-19 VAERS Symptoms')
 
     # Source: https://plotly.com/python/builtin-colorscales/
 
