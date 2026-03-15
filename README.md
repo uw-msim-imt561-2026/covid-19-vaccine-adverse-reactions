@@ -38,6 +38,7 @@ Our team’s imagined stakeholders are executives and heads of Research and Deve
 1) **Medical experts** (a.k.a. "The Researchers" / “The R&D”): Individuals with strong medical and scientific backgrounds who work directly in research and development labs and evaluate vaccine safety signals. 
 2) **Operations experts** (a.k.a "The Business-minded"): Individuals with business or operations backgrounds who make key decisions about manufacturing, resource allocation, and overall product strategy. These stakeholders need clear information about adverse effects in VAERS to interpret vaccine demand, anticipate operational needs, and understand the choices made by the Medical Experts, during their vaccine development.
 
+## CONTEXT
 Vaccine adverse reaction data matters to our stakeholders because they are obliged to monitor the negative side effects of their products and ensure they are not causing patients outsized harm (e.g. outcomes like hospitalization, death, or disablement). Ethically and financially, vaccine developers must work to improve future vaccine formulations to minimize negative side effects. In addition, our stakeholders face a political climate of vaccine hesitancy and mistrust. They may wish to use the insights from our dataset for marketing their products to external audiences (e.g., illustrating downward trends in adverse events as the COVID-19 vaccines have developed between 2020 and 2024).
 
 Our stakeholders have asked us to analyze the VAERS dataset to accomplish the following specific goals:
