@@ -18,8 +18,8 @@ def main() -> None:
     # HTML/CSS caption that fills space between two strings.
     st.markdown(
         """<div style="display:flex; justify-content:space-between; width:100%">
-            <span style="color:black;">Interactive dashboard for adverse events and reactions to COVID-19 vaccines.</span>
-            <span style="color:black;">Version 1.1.</span> </div>""",
+            <span style="color:grey;">Interactive dashboard for adverse events and reactions to COVID-19 vaccines.</span>
+            <span style="color:grey;">Version 1.1.</span> </div>""",
         unsafe_allow_html=True
     )
 
