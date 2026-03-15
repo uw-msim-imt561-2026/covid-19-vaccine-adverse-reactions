@@ -54,6 +54,7 @@ def plot_reports_overtime_line(df: pd.DataFrame):
     # line plot
     labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events'}
     fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels,
+                  color_discrete_sequence=['#ee4e59'],
                   title='Number of COVID-19 VAERS Reports Over Time')
 
     # streamlit plot command
@@ -106,7 +107,9 @@ def plot_reports_overtime_line_sex(df: pd.DataFrame):
 
     # line plot
     labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events', 'SEX': 'Sex'}
-    fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels, color="SEX",
+    fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels,
+                  color="SEX",
+                  color_discrete_sequence=['#ee4e59','#f7925c'],
                   title='Number of COVID-19 VAERS Reports Over Time (Sex)')
 
     # streamlit plot command
@@ -132,7 +135,9 @@ def plot_reports_overtime_line_vax(df: pd.DataFrame):
 
     # line plot
     labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events', 'VAX_MANU': 'Vaccine'}
-    fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels, color="VAX_MANU",
+    fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels,
+                  color="VAX_MANU",
+                  color_discrete_sequence=['#ee4e59', '#f7925c', '#ecda9a'],
                   title='Number of COVID-19 VAERS Reports Over Time (Vaccine Type)')
 
     # streamlit plot command
@@ -197,7 +202,8 @@ def plot_num_reports_sex(df: pd.DataFrame):
     labels = {'SEX': 'Patient Sex', 'report_count': 'Number of Adverse Events'}
     grouped_sex = df.groupby(by=['SEX']).agg(report_count=("VAERS_ID", 'count'))
     grouped_sex = grouped_sex.reset_index()
-    fig = px.bar(grouped_sex, x="SEX", y="report_count", labels=labels, color="report_count",
+    fig = px.bar(grouped_sex, x="SEX", y="report_count", labels=labels,
+                 color="report_count",
                  color_continuous_scale="Oryel",
                  title='Number of VAERS Reports by Patient Sex')
 
