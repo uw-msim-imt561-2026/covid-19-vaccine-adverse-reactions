@@ -103,8 +103,10 @@ def get_prev_month(df: pd.DataFrame) -> str:
     df_kpi_grouped = (df.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
     # sort by MONTH_YEAR
     len_grouped_kpi = len(df_kpi_grouped)
-    last_month = df_kpi_grouped.at[(len(df_kpi_grouped) - 1), 'MONTH_YEAR']
-    if len_grouped_kpi < 2:
+    if len_grouped_kpi == 0:
+        prev_month = 'N/A'
+    elif len_grouped_kpi < 2:
+        last_month = df_kpi_grouped.at[(len(df_kpi_grouped) - 1), 'MONTH_YEAR']
         prev_month = last_month
     else:
         if not df_kpi_grouped.empty:
@@ -113,8 +115,12 @@ def get_prev_month(df: pd.DataFrame) -> str:
 
 def get_last_month(df: pd.DataFrame) -> str:
     df_kpi_grouped = (df.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
-    # sort by MONTH_YEAR
-    if not df_kpi_grouped.empty:
-        last_month = df_kpi_grouped.at[(len(df_kpi_grouped) - 1), 'MONTH_YEAR']
+    len_grouped_kpi = len(df_kpi_grouped)
+    if len_grouped_kpi == 0:
+        last_month = 'N/A'
+    else:
+        # sort by MONTH_YEAR
+        if not df_kpi_grouped.empty:
+            last_month = df_kpi_grouped.at[(len(df_kpi_grouped) - 1), 'MONTH_YEAR']
     return last_month
 
