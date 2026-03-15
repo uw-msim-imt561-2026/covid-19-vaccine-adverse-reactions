@@ -173,15 +173,16 @@ def plot_patient_ages(df: pd.DataFrame):
     median_age = round(df['AGE_YRS'].median(), 2)
     max_age = round(df['AGE_YRS'].max(), 2)
     min_age = round(df['AGE_YRS'].min(), 2)
-    fig = px.histogram(df, x="AGE_YRS", title="Number of VAERS Reports by Patient Age", labels=labels)
-    fig.add_vline(x=mean_age, line_width=3, annotation_text=("Average Age: " + str(mean_age)),
-                  annotation_position="top left")
-    fig.add_vline(x=median_age, line_width=3, annotation_text=("Median Age: " + str(median_age)),
-                  annotation_position="top right")
-    fig.add_vline(x=max_age, line_width=3, annotation_text=("Max Age: " + str(max_age)),
-                  annotation_position="top right")
-    fig.add_vline(x=min_age, line_width=3, annotation_text=("Min Age: " + str(min_age)),
-                  annotation_position="top right")
+    fig = px.histogram(df, x="AGE_YRS", title="Number of VAERS Reports by Patient Age", labels=labels,
+                       color_discrete_sequence=['#f3a867'])
+    fig.add_vline(x=mean_age, line_width=3, line_color='red', annotation_text=("Average Age: " + str(mean_age) + "   "),
+                  annotation_position="top left", annotation_font_size=16, annotation_font_color='red')
+    fig.add_vline(x=median_age, line_width=3, line_color='red', annotation_text=("   Median Age: " + str(median_age)),
+                  annotation_position="top right", annotation_font_size=16, annotation_font_color='red')
+    fig.add_vline(x=max_age, line_width=3, line_color='red', annotation_text=("  Max Age: " + str(max_age)),
+                  annotation_position="top right", annotation_font_size=16, annotation_font_color='red')
+    fig.add_vline(x=min_age, line_width=3, line_color='red', annotation_text=("  Min Age: " + str(min_age)),
+                  annotation_position="top right", annotation_font_size=16, annotation_font_color='red')
 
     # streamlit plot command
     st.plotly_chart(fig, width='stretch') # graph will be dynamically sized in layout
@@ -196,7 +197,9 @@ def plot_num_reports_sex(df: pd.DataFrame):
     labels = {'SEX': 'Patient Sex', 'report_count': 'Number of Adverse Events'}
     grouped_sex = df.groupby(by=['SEX']).agg(report_count=("VAERS_ID", 'count'))
     grouped_sex = grouped_sex.reset_index()
-    fig = px.bar(grouped_sex, x="SEX", y="report_count", labels=labels, title='Number of VAERS Reports by Patient Sex', color="SEX")
+    fig = px.bar(grouped_sex, x="SEX", y="report_count", labels=labels, color="report_count",
+                 color_continuous_scale="Oryel",
+                 title='Number of VAERS Reports by Patient Sex')
 
     # streamlit plot command
     fig.update_layout(showlegend=False)
@@ -213,7 +216,9 @@ def plot_num_reports_loc(df: pd.DataFrame):
     grouped_state = df.groupby(by=['STATE']).agg(report_count=("VAERS_ID", 'count'))
     grouped_state = grouped_state.reset_index()
     grouped_state = grouped_state.sort_values(by='report_count', ascending=False)
-    fig = px.bar(grouped_state, x="STATE", y="report_count", labels=labels, color="STATE",
+    fig = px.bar(grouped_state, x="STATE", y="report_count", labels=labels,
+                 color="report_count",
+                 color_continuous_scale="Oryel",
                  title='Number of VAERS Reports by Patient Location')
 
     # streamlit plot command
