@@ -14,7 +14,9 @@ from src.data import (get_total_events_kpi,
                       get_total_died_kpi,
                       get_percent_change_total,
                       get_percent_change_hosp,
-                      get_percent_change_died)
+                      get_percent_change_died,
+                      get_prev_month,
+                      get_last_month)
 
 def header_metrics(df: pd.DataFrame) -> None:
     #def header_metrics(df: pd.DataFrame) <--- update this when dataframe is ready
@@ -64,6 +66,10 @@ def header_metrics(df: pd.DataFrame) -> None:
             else:
                 pct_change_died = pct_change_died * -1
                 st.markdown(f''':green-background[:green[↓{pct_change_died}%]]''')
+
+    st.markdown("The percent change for each of the above metrics is calculated between the **last month** and **immediate previous month** of the selected date range.")
+    st.markdown("*Last Month*: " + str(get_last_month(df)))
+    st.markdown("*Immediate Previous Month*: " + str(get_prev_month(df)))
 
 # Source: https://docs.streamlit.io/develop/api-reference/text/st.markdown
 
