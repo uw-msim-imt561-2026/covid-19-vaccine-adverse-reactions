@@ -78,15 +78,13 @@ def body_layout_tabs(df) -> None:
     with t1:
         st.subheader("Events Over Time")
         tab_choice = st.radio(''':grey[Study the number of adverse reaction events reported over time.]''',
-        ["Overall", "State","Sex","Vaccine Type"],
+        ["Overall","Sex","Vaccine Type"],
         horizontal=True,
         )
         #if tab_choice == "Bar":
             #plot_reports_overtime_bar(df) #<-chart function here
         if tab_choice == "Overall":
             plot_reports_overtime_line(df) #<-chart function here
-        elif tab_choice == "State":
-            plot_reports_overtime_line_state(df)  # <-chart function here
         elif tab_choice == "Sex":
             plot_reports_overtime_line_sex(df)  # <-chart function here
         elif tab_choice == "Vaccine Type":
