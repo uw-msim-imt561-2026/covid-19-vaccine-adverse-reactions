@@ -109,7 +109,6 @@ def plot_reports_overtime_line_sex(df: pd.DataFrame):
     labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events', 'SEX': 'Sex'}
     fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels,
                   color="SEX",
-                  color_discrete_sequence=['#ee4e59','#f7925c'],
                   title='Number of COVID-19 VAERS Reports Over Time (Sex)')
 
     # streamlit plot command
@@ -137,7 +136,6 @@ def plot_reports_overtime_line_vax(df: pd.DataFrame):
     labels = {'ONSET_MONTHYEAR': 'Onset Month & Year', 'report_count': 'Number of Reported Events', 'VAX_MANU': 'Vaccine'}
     fig = px.line(line_grouped, x="ONSET_MONTHYEAR", y="report_count", labels=labels,
                   color="VAX_MANU",
-                  color_discrete_sequence=['#ee4e59', '#f7925c', '#ecda9a'],
                   title='Number of COVID-19 VAERS Reports Over Time (Vaccine Type)')
 
     # streamlit plot command
