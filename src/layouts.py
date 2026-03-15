@@ -37,7 +37,7 @@ def header_metrics(df: pd.DataFrame) -> None:
     m3_help = "Total deaths associated with adverse events in the selected onset‑date range. Percent change reflects the difference from the previous set period."
 
     with c1:
-        st.metric("Total adverse events  \nover time",total_events,help=m1_help)
+        st.metric("Total adverse events  \nover time",total_events,help=m1_help,format='localized')
         if isinstance(pct_change_total, str):
             st.markdown(f''':yellow-background[:yellow[NaN]]''')
         else:
@@ -47,7 +47,7 @@ def header_metrics(df: pd.DataFrame) -> None:
                 pct_change_total = pct_change_total * -1
                 st.markdown(f''':green-background[:green[↓{pct_change_total}%]]''')
     with c2:
-        st.metric("Total hospitalizations  \nover time",total_hosp,help=m2_help)
+        st.metric("Total hospitalizations  \nover time",total_hosp,help=m2_help,format='localized')
         if isinstance(pct_change_hosp, str):
             st.markdown(f''':yellow-background[:yellow[NaN]]''')
         else:
@@ -57,7 +57,7 @@ def header_metrics(df: pd.DataFrame) -> None:
                 pct_change_hosp = pct_change_hosp * -1
                 st.markdown(f''':green-background[:green[↓{pct_change_hosp}%]]''')
     with c3:
-        st.metric("Total deaths  \nover time",total_died,help=m3_help)
+        st.metric("Total deaths  \nover time",total_died,help=m3_help,format='localized')
         if isinstance(pct_change_died, str):
             st.markdown(f''':yellow-background[:yellow[NaN]]''')
         else:
