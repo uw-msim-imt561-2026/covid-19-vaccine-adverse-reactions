@@ -5,12 +5,25 @@ def render_filters(df: pd.DataFrame) -> dict:
     """Rendering filter widgets and returning the chosen values."""
     st.sidebar.header("FILTERS")
 
+    # REPORT DATE SECTION
+    st.sidebar.subheader("Dates")
+    # Report Date slider
+    #min_dt, max_dt = 0, 24  # get rid of this when df is ready
+    min_dt, max_dt = df["ONSET_DATE"].min().to_pydatetime(), df["ONSET_DATE"].max().to_pydatetime()
+    report_date = st.sidebar.slider(
+        "Date of Symptom Onset",
+        min_value=min_dt,
+        max_value=max_dt,
+        value=(min_dt, max_dt),
+        format="MM-DD-YY",
+    )
+
     ## VACCINE SECTION
-    st.sidebar.subheader("Vaccine",divider="grey")
+    st.sidebar.subheader("Vaccine Info")
 
     # Vaccine Type
     vax_list = ["All"] + sorted(df["VAX_MANU"].unique().tolist())
-    vax = st.sidebar.selectbox("Vaccine Type", vax_list, index=0)
+    vax = st.sidebar.selectbox("Manufacturer", vax_list, index=0)
 
     # Dosage Series slider
     # min_rt, max_rt = float(0), float(7)  # get rid of this when df is ready
@@ -24,7 +37,7 @@ def render_filters(df: pd.DataFrame) -> dict:
     )
 
     ## DEMOGRAPHICS SECTION
-    st.sidebar.subheader("Demographic", divider="grey")
+    st.sidebar.subheader("Patient Demographics")
 
     # Sex
     sex_list = ["All"] + sorted(df["SEX"].unique().tolist())
@@ -43,18 +56,6 @@ def render_filters(df: pd.DataFrame) -> dict:
     # State Location
     state_list = sorted(df["STATE"].unique().tolist())
     state = st.sidebar.multiselect("State", state_list, default=state_list)
-
-    st.sidebar.subheader("", divider="grey")
-    # Report Date slider
-    #min_dt, max_dt = 0, 24  # get rid of this when df is ready
-    min_dt, max_dt = df["ONSET_DATE"].min().to_pydatetime(), df["ONSET_DATE"].max().to_pydatetime()
-    report_date = st.sidebar.slider(
-        "Date of Symptom Onset",
-        min_value=min_dt,
-        max_value=max_dt,
-        value=(min_dt, max_dt),
-        format="MM-DD-YY",
-    )
 
     # Source: https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_pydatetime.html
     ## ^ Makes it so the min and max of a datetime is returned in a way that Streamlit likes.

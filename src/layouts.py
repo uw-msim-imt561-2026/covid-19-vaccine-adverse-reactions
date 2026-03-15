@@ -73,7 +73,7 @@ def body_layout_tabs(df) -> None:
     t1, t2, t3, t4 = st.tabs(["Events Over Time","Adverse Events Demographics", "Most Common Symptoms", "Table View"])
     with t1:
         st.subheader("Events Over Time")
-        tab_choice = st.radio(''':grey[Study the frequency of adverse reaction events reported over time.]''',
+        tab_choice = st.radio(''':grey[Study the number of adverse reaction events reported over time.]''',
         ["Overall", "State","Sex","Vaccine Type"],
         horizontal=True,
         )
@@ -89,8 +89,8 @@ def body_layout_tabs(df) -> None:
             plot_reports_overtime_line_vax(df)  # <-chart function here
 
     with t2:
-        st.subheader("Adverse Events Demographics")
-        st.caption("Look into the frequency of adverse events across specific demographics.")
+        st.subheader("Adverse Events by Patient Demographics")
+        st.caption("Study the number of adverse events reported across specific patient demographics.")
         plot_patient_ages(df) #<-chart function here
         plot_num_reports_sex(df) #<-chart function here
         plot_num_reports_loc(df) #<-chart function here
