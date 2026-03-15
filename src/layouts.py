@@ -68,8 +68,8 @@ def header_metrics(df: pd.DataFrame) -> None:
                 st.markdown(f''':green-background[:green[↓{pct_change_died}%]]''')
 
     st.markdown("The percent change for each of the above metrics is calculated between the **last month** and **immediate previous month** of the selected date range.")
-    st.markdown("*Last Month*: " + str(get_last_month(df)))
-    st.markdown("*Immediate Previous Month*: " + str(get_prev_month(df)))
+    st.markdown("- *Last Month*: " + str(get_last_month(df)))
+    st.markdown("- *Immediate Previous Month*: " + str(get_prev_month(df)))
 
 # Source: https://docs.streamlit.io/develop/api-reference/text/st.markdown
 
