@@ -43,11 +43,11 @@ def get_total_died_kpi(df: pd.DataFrame) -> str:
 def get_percent_change_total(df: pd.DataFrame) -> float:
     df_kpi_grouped = (df.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
     # sort by MONTH_YEAR
-    last_month_date = df_kpi_grouped.at[(len(df_kpi_grouped) - 1), 'MONTH_YEAR']
-    if last_month_date == '2020-01':
-        pct_change = 'NaN'
-    else:
-        if not df_kpi_grouped.empty:
+    if not df_kpi_grouped.empty:
+        len_grouped_df = len(df_kpi_grouped)
+        if len_grouped_df < 2:
+            pct_change = 'NaN'
+        else:
             prev_month = df_kpi_grouped.at[(len(df_kpi_grouped)-2),'report_count']
             last_month = df_kpi_grouped.at[(len(df_kpi_grouped)-1), 'report_count']
             if prev_month == 0:
@@ -55,8 +55,8 @@ def get_percent_change_total(df: pd.DataFrame) -> float:
             else:
                 pct_change = ((last_month - prev_month) / abs(prev_month))*100
                 pct_change = round(pct_change, 2)
-        else:
-            pct_change = "NaN"
+    else:
+        pct_change = "NaN"
     return pct_change
 
 def get_percent_change_hosp(df: pd.DataFrame) -> float:
@@ -64,12 +64,12 @@ def get_percent_change_hosp(df: pd.DataFrame) -> float:
     df_kpi_hosp = (df_hosp.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
     # sort by MONTH_YEAR
     if not df_kpi_hosp.empty:
-        prev_month = df_kpi_hosp.at[(len(df_kpi_hosp) - 2), 'report_count']
-        last_month = df_kpi_hosp.at[(len(df_kpi_hosp) - 1), 'report_count']
-        last_month_date = df_kpi_hosp.at[(len(df_kpi_hosp) - 1), 'MONTH_YEAR']
-        if last_month_date == '2020-01':
+        len_grouped_hosp = len(df_kpi_hosp)
+        if len_grouped_hosp < 2:
             pct_change = 'NaN'
         else:
+            prev_month = df_kpi_hosp.at[(len(df_kpi_hosp) - 2), 'report_count']
+            last_month = df_kpi_hosp.at[(len(df_kpi_hosp) - 1), 'report_count']
             if prev_month == 0:
                 pct_change = 'NaN'
             else:
@@ -84,12 +84,12 @@ def get_percent_change_died(df: pd.DataFrame) -> float:
     df_kpi_died = (df_died.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
     # sort by MONTH_YEAR
     if not df_kpi_died.empty:
-        prev_month = df_kpi_died.at[(len(df_kpi_died)-2),'report_count'] #this guy
-        last_month = df_kpi_died.at[(len(df_kpi_died)-1), 'report_count']
-        last_month_date = df_kpi_died.at[(len(df_kpi_died) - 1), 'MONTH_YEAR']
-        if last_month_date == '2020-01':
+        len_kpi_grouped = len(df_kpi_died)
+        if len_kpi_grouped < 2:
             pct_change = 'NaN'
         else:
+            prev_month = df_kpi_died.at[(len(df_kpi_died)-2),'report_count'] #this guy
+            last_month = df_kpi_died.at[(len(df_kpi_died)-1), 'report_count']
             if prev_month == 0:
                 pct_change = 'NaN'
             else:
@@ -102,9 +102,10 @@ def get_percent_change_died(df: pd.DataFrame) -> float:
 def get_prev_month(df: pd.DataFrame) -> str:
     df_kpi_grouped = (df.groupby(by=["MONTH_YEAR"]).agg(report_count=("VAERS_ID", "count"))).reset_index()
     # sort by MONTH_YEAR
+    len_grouped_kpi = len(df_kpi_grouped)
     last_month = df_kpi_grouped.at[(len(df_kpi_grouped) - 1), 'MONTH_YEAR']
-    if last_month == '2020-01':
-        prev_month = 'No data available prior to January 2020.'
+    if len_grouped_kpi < 2:
+        prev_month = last_month
     else:
         if not df_kpi_grouped.empty:
             prev_month = df_kpi_grouped.at[(len(df_kpi_grouped) - 2), 'MONTH_YEAR']
